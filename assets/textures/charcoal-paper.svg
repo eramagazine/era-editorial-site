@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="480" height="480" viewBox="0 0 480 480">
+  <filter id="grain"><feTurbulence type="fractalNoise" baseFrequency=".74" numOctaves="3" stitchTiles="stitch" seed="17"/><feColorMatrix type="saturate" values="0"/></filter>
+  <filter id="fibers"><feTurbulence type="fractalNoise" baseFrequency=".025 .085" numOctaves="4" stitchTiles="stitch" seed="8"/><feColorMatrix type="saturate" values="0"/></filter>
+  <rect width="480" height="480" fill="#131415"/>
+  <rect width="480" height="480" filter="url(#fibers)" opacity=".10"/>
+  <rect width="480" height="480" filter="url(#grain)" opacity=".16"/>
+</svg>
