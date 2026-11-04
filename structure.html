@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#eeeae2">
+  <title>Структура журнала — ERA magazine</title>
+  <link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+  <a class="skip" href="#main">К содержанию</a>
+  <header class="topbar">
+    <a class="top-logo" href="index.html" aria-label="ERA — на главную"><img src="images/Frame%2049.png" alt="ERA" width="44" height="44"><span>ELECTRONIC RUSSIAN ASSOCIATION</span></a>
+    <span class="edition">ISSUE 001 / 2026—27</span>
+  </header>
+  <dialog id="mobile-section-menu" class="mobile-menu" aria-labelledby="mobile-menu-title">
+    <div class="mobile-menu-heading"><span id="mobile-menu-title">Разделы / ERA</span><button class="mobile-menu-close" type="button" aria-label="Закрыть меню">×</button></div>
+    <nav aria-label="Разделы страницы"></nav>
+  </dialog>
+  <div class="shell">
+    <aside class="sidebar" aria-label="Разделы страницы">
+      <div id="section-sidebar">
+      <div class="sidebar-label">Навигация</div>
+      <nav class="side-nav" aria-label="Страницы сайта">
+        <a class="nav-page-pill" href="structure.html">Структура журнала</a>
+        <details class="nav-departments"><summary class="nav-page-pill">Отделы <span aria-hidden="true">+</span></summary><div class="department-links">
+          <a href="journalists.html">Журналисты</a>
+          <a href="pr.html">PR</a>
+          <a href="smm.html">SMM</a>
+          <a href="design.html">Дизайнеры</a>
+        </div></details>
+      </nav>
+      </div>
+      <button class="sidebar-toggle" id="sidebar-toggle" type="button" aria-controls="section-sidebar" aria-expanded="true">Скрыть меню</button>
+    </aside>
+    <main class="content page-content" id="main">
+      <h1 class="page-title">Структура журнала</h1>
+      <section class="section" id="rubrics">
+        <div class="section-head section-head-plain"><div><h2>Рубрики и форматы</h2><p class="section-desc">Рубрика определяет тему, а не жёсткую форму. Интервью может превратиться в репортаж, профайл, коллективный портрет или визуальную схему.</p></div></div>
+        <div class="rubrics" id="rubrics-list"></div>
+        <div class="note"><strong>Экспериментальные форматы:</strong> «Анатомия звука» — разбор одного звука; «После последнего трека» — невидимая работа команды; «Цепная реакция» — сеть связей между участниками сцены; «Объект исследования» — одна вещь, изменившая музыку.</div>
+      </section>
+      <section class="section" id="flatplan">
+        <div class="section-head section-head-plain"><div><h2>Флэтплан / 80 страниц</h2><p class="section-desc">Предварительное распределение материалов внутри выпуска. Нажми на любую страницу, чтобы увидеть её содержание. В структуре учтены четыре стороны обложки; окончательную полиграфическую конструкцию уточняем с типографией.</p></div></div>
+        <div class="mix"><div><span class="mini-label">ПРЕДВАРИТЕЛЬНЫЙ СОСТАВ / 15 ГЕРОЕВ</span><div class="mix-bar"><span></span><span></span><span></span></div><div class="mix-list"><div class="mix-line"><span><i style="background:var(--blue)"></i>Известные артисты</span><b>4 / 27%</b></div><div class="mix-line"><span><i style="background:var(--cyan)"></i>Локальная сцена</span><b>5 / 33%</b></div><div class="mix-line"><span><i style="background:var(--gold)"></i>Люди внутри сцены</span><b>6 / 40%</b></div></div></div><div class="mix-summary">Структура 30 / 30 / 40 — ориентир для подбора героев, а не требование делить полосы точно в той же пропорции. Часть героев может участвовать в коллективных материалах; 15 больших Q&A не нужны.</div></div>
+        <div class="flat-wrap"><div><div class="flat-grid" id="flat-grid" aria-label="Интерактивная постраничная схема журнала"></div><div class="flat-legend"><span class="legend-item"><i style="background:#d5d2c9"></i>Вход</span><span class="legend-item"><i style="background:#95a7d0"></i>Главное</span><span class="legend-item"><i style="background:#85b9b3"></i>Регионы</span><span class="legend-item"><i style="background:#d8bd8b"></i>Backstage</span><span class="legend-item"><i style="background:#b7a8cf"></i>Исследования</span><span class="legend-item"><i style="background:#cdcbc3"></i>Финал</span></div></div><aside class="page-info" id="page-info" aria-live="polite"><span class="meta-line">Выбранная страница / 01</span><h3>Обложка</h3><p>Визуальный образ первого выпуска.</p><div class="tip">↑ Нажми на номер в карте, чтобы открыть содержание.</div></aside></div>
+        <p class="note"><strong>Правило:</strong> страница засчитывается в готовую вёрстку только после подстановки окончательного материала, сверки фото, подписей и проверки макета. Текст-рыба не считается готовой полосой.</p>
+      </section>
+
+      <footer class="footer">
+        <div class="footer-copyright"><span class="footer-label">copyright</span><p class="footer-copy">© 2026 ERA magazine — All rights reserved.</p></div>
+        <div class="footer-socials"><span class="footer-label">socials</span><div class="footer-social-links"><a href="https://www.instagram.com/era.magazinee?stkn=MWh4OGViNHFueG9nNg==" aria-label="ERA magazine в Instagram">IG</a><a href="https://t.me/eramagazinee" aria-label="ERA magazine в Telegram">TG</a></div></div>
+      </footer>
+    </main>
+  </div>
+  <script src="assets/structure.js"></script>
+  <script src="assets/navigation.js"></script>
+</body>
+</html>

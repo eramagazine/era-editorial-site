@@ -4,14 +4,43 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#eeeae2">
-  <title>Дизайн — ERA magazine</title>
-  <link rel="stylesheet" href="assets/department.css">
+  <title>Дизайнеры — ERA magazine</title>
+  <link rel="stylesheet" href="assets/site.css">
 </head>
 <body>
-  <header class="department-header">
-    <a class="department-brand" href="index.html" aria-label="ERA — на главную"><img src="images/Frame%2049.png" alt="ERA" width="44" height="44"><span>ELECTRONIC RUSSIAN ASSOCIATION</span></a>
-    <a class="department-back" href="index.html">← На главную</a>
+  <a class="skip" href="#main">К содержанию</a>
+  <header class="topbar">
+    <a class="top-logo" href="index.html" aria-label="ERA — на главную"><img src="images/Frame%2049.png" alt="ERA" width="44" height="44"><span>ELECTRONIC RUSSIAN ASSOCIATION</span></a>
+    <span class="edition">ISSUE 001 / 2026—27</span>
   </header>
-  <main aria-label="Дизайн"><h1>в процессе обработки</h1></main>
+  <dialog id="mobile-section-menu" class="mobile-menu" aria-labelledby="mobile-menu-title">
+    <div class="mobile-menu-heading"><span id="mobile-menu-title">Разделы / ERA</span><button class="mobile-menu-close" type="button" aria-label="Закрыть меню">×</button></div>
+    <nav aria-label="Разделы страницы"></nav>
+  </dialog>
+  <div class="shell">
+    <aside class="sidebar" aria-label="Разделы страницы">
+      <div id="section-sidebar">
+      <div class="sidebar-label">Навигация</div>
+      <nav class="side-nav" aria-label="Страницы сайта">
+        <a class="nav-page-pill" href="structure.html">Структура журнала</a>
+        <details class="nav-departments"><summary class="nav-page-pill">Отделы <span aria-hidden="true">+</span></summary><div class="department-links">
+          <a href="journalists.html">Журналисты</a>
+          <a href="pr.html">PR</a>
+          <a href="smm.html">SMM</a>
+          <a href="design.html">Дизайнеры</a>
+        </div></details>
+      </nav>
+      </div>
+      <button class="sidebar-toggle" id="sidebar-toggle" type="button" aria-controls="section-sidebar" aria-expanded="true">Скрыть меню</button>
+    </aside>
+    <main class="content page-content" id="main">
+      <div class="department-placeholder"><h1>в процессе обработки</h1></div>
+      <footer class="footer">
+        <div class="footer-copyright"><span class="footer-label">copyright</span><p class="footer-copy">© 2026 ERA magazine — All rights reserved.</p></div>
+        <div class="footer-socials"><span class="footer-label">socials</span><div class="footer-social-links"><a href="https://www.instagram.com/era.magazinee?stkn=MWh4OGViNHFueG9nNg==" aria-label="ERA magazine в Instagram">IG</a><a href="https://t.me/eramagazinee" aria-label="ERA magazine в Telegram">TG</a></div></div>
+      </footer>
+    </main>
+  </div>
+  <script src="assets/navigation.js"></script>
 </body>
 </html>
