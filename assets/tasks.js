@@ -17,7 +17,7 @@
   const el=(tag,cls,text)=>{const node=document.createElement(tag);if(cls)node.className=cls;if(text!==undefined)node.textContent=text;return node};
   const completed=task=>typeof completion[task.id]==="boolean"?completion[task.id]:task.status==="done";
   const status=task=>completed(task)?"done":task.status==="done"?"in_progress":task.status;
-  const labels={done:"Выполнено",in_progress:"В процессе",unset:"Не отмечено"};
+  const labels={done:"Завершено",in_progress:"В процессе",unset:"Не отмечено"};
   const formatDate=value=>value?value.split("-").reverse().map((p,i)=>i===2?p.slice(-2):p).join("."):"Не указан";
   function persist(){try{localStorage.setItem(storageKey,JSON.stringify(completion))}catch{syncStatus.textContent="Не удалось сохранить отметки в браузере."}}
   function render(){

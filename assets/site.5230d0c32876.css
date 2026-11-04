@@ -323,13 +323,8 @@
     .task-toolbar select:hover{background-color:#292929}.task-toolbar select option{background:#0e0e0e;color:#eeeae2}
 
     @media(max-width:760px){
-      .task-row{position:relative}
-      .task-table .task-row .task-title{padding-right:72px}
-      .task-table .task-row .task-state{position:absolute;top:10px;right:10px;width:44px;padding:0;border:0;background:transparent}
+      .task-table .task-row .task-state{padding:0;border:0}
       .task-table .task-row .task-state:before{display:none}
-      .task-table .task-row .task-state .task-complete{width:44px;min-height:44px;padding:0;justify-content:center;background:transparent}
-      .task-table .task-row .task-state .task-complete>span{display:none}
-      .task-table .task-row .task-state input{width:22px;height:22px}
     }
     @media(max-width:850px){
       .mobile-menu{inset:80px 12px auto;width:calc(100% - 24px);height:auto;max-height:calc(100vh - 104px);max-height:calc(100dvh - 104px);padding:20px;border:1px solid var(--line);border-radius:18px;background:var(--paper);box-shadow:0 12px 36px rgba(0,0,0,.14);overflow-y:auto}
