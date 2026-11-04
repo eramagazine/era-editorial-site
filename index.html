@@ -219,7 +219,7 @@
     @media print{#calendar-dialog,.calendar-pager{display:none!important}.calendar-sheet{box-shadow:none;border-color:#aaa}.calendar-event{print-color-adjust:exact;-webkit-print-color-adjust:exact}}
 
     /* Printed calendar on charcoal stock; the surrounding page stays warm. */
-    .calendar-sheet{--calendar-paper:#18191a;--calendar-text:#eeeae2;--calendar-muted:#b9b6af;--calendar-rule:rgba(238,234,226,.24);background-color:var(--calendar-paper);background-image:url("Frame%2074.jpg");background-size:cover;background-position:center;background-repeat:no-repeat;color:var(--calendar-text);border:1px solid #383836;border-radius:3px;box-shadow:0 2px 3px rgba(0,0,0,.12),0 12px 24px rgba(40,32,20,.1)}
+    .calendar-sheet{--calendar-paper:#18191a;--calendar-text:#eeeae2;--calendar-muted:#b9b6af;--calendar-rule:rgba(238,234,226,.24);background-color:var(--calendar-paper);background-image:url("images/Frame%2074.jpg");background-size:cover;background-position:center;background-repeat:no-repeat;color:var(--calendar-text);border:1px solid #383836;border-radius:3px;box-shadow:0 2px 3px rgba(0,0,0,.12),0 12px 24px rgba(40,32,20,.1)}
     .calendar-toolbar{border-top:3px solid var(--calendar-text);padding-top:20px}.calendar-toolbar h3{font-family:var(--mono);font-size:clamp(24px,2.8vw,38px);font-weight:500}.calendar-toolbar .meta-line,.calendar-hint{color:var(--calendar-muted)}
     .calendar-pager button,.calendar-pager select{border-color:var(--calendar-rule);border-radius:2px;color:var(--calendar-text);background:transparent}.calendar-pager select{color-scheme:dark}.calendar-pager select option{background:#202122;color:#eeeae2}.calendar-pager button:disabled{opacity:.4}.calendar-pager button:not(:disabled):hover{background:rgba(238,234,226,.1)}
     .calendar-weekdays{color:var(--calendar-muted);border-color:var(--calendar-rule)}.calendar-week{border-color:var(--calendar-rule);background:repeating-linear-gradient(90deg,transparent 0 calc(100% / 7 - 1px),rgba(238,234,226,.1) calc(100% / 7 - 1px) calc(100% / 7))}
@@ -273,7 +273,7 @@
 <body>
   <a class="skip" href="#main">К содержанию</a>
   <header class="topbar">
-    <a class="top-logo" href="#top" aria-label="ERA — к началу"><img src="Frame%2049.png" alt="ERA" width="44" height="44"><span>ELECTRONIC RUSSIAN ASSOCIATION</span></a>
+    <a class="top-logo" href="#top" aria-label="ERA — к началу"><img src="images/Frame%2049.png" alt="ERA" width="44" height="44"><span>ELECTRONIC RUSSIAN ASSOCIATION</span></a>
     <span class="edition">ISSUE 001 / 2026—27</span>
   </header>
   <dialog id="mobile-section-menu" class="mobile-menu" aria-labelledby="mobile-menu-title">
@@ -546,7 +546,7 @@
       team.forEach((group,index)=>{
         const card=document.createElement("details");card.className="team-category";
         const summary=document.createElement("summary");
-        const image=document.createElement("img");image.src=`Group%20${group.image}.jpg`;image.alt=`Карточка категории «${group.category}»`;image.width=400;image.height=400;image.loading="lazy";image.className="team-artwork";
+        const image=document.createElement("img");image.src=`images/Group%20${group.image}.jpg`;image.alt=`Карточка категории «${group.category}»`;image.width=400;image.height=400;image.loading="lazy";image.className="team-artwork";
         const heading=document.createElement("div");heading.className="team-category-heading";
         heading.append(textNode("span","team-category-number",String(index+1).padStart(2,"0")),textNode("h3","",group.category),textNode("span","team-category-plus","+"));heading.lastChild.setAttribute("aria-hidden","true");
         summary.append(image,heading,textNode("p","team-names",group.members.length?group.members.map(member=>member.name).join(" · "):"В процессе отбора"));
