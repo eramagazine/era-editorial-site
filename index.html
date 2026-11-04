@@ -6,14 +6,14 @@
   <meta name="theme-color" content="#eeeae2">
   <meta name="description" content="ERA — редакционный и производственный план первого выпуска: сроки, команда, редакционный цикл, рубрики, flatplan и контроль готовности.">
   <title>ERA — Редакционная система / выпуск 01</title>
-  <link rel="stylesheet" href="assets/site.css?v=c6eb2dd04612">
+  <link rel="stylesheet" href="assets/site.3a4a29c5a142.css">
 </head>
 <body>
   <a class="skip" href="#main">К содержанию</a>
   <header class="topbar">
     <a class="top-logo" href="#top" aria-label="ERA — к началу"><img src="images/Frame%2049.png" alt="ERA" width="44" height="44"><span>ELECTRONIC RUSSIAN ASSOCIATION</span></a>
       <nav class="header-nav" aria-label="Страницы сайта">
-        <a class="nav-page-pill" href="structure.html">Структура журнала</a>
+        <a class="nav-page-pill" href="structure.html?v=layout-2">Структура журнала</a>
         <details class="nav-departments"><summary class="nav-page-pill">Отделы <span aria-hidden="true">+</span></summary><div class="department-links">
           <a href="journalists.html">Журналисты</a>
           <a href="pr.html">PR</a>
@@ -21,7 +21,7 @@
           <a href="design.html">Дизайнеры</a>
         </div></details>
       </nav>
-    <div class="header-actions"><span class="edition">ISSUE 001 / 2026—27</span><button id="mobile-menu-toggle" class="header-menu-toggle" type="button" aria-controls="mobile-section-menu" aria-expanded="false">Меню</button></div>
+    <div class="header-actions"><span class="edition issue-badge">ISSUE 001 / 2026—27</span><button id="mobile-menu-toggle" class="header-menu-toggle" type="button" aria-controls="mobile-section-menu" aria-expanded="false">Меню</button></div>
   </header>
   <dialog id="mobile-section-menu" class="mobile-menu" aria-labelledby="mobile-menu-title">
     <div class="mobile-menu-heading"><span id="mobile-menu-title">Разделы / ERA</span><button class="mobile-menu-close" type="button" aria-label="Закрыть меню">×</button></div>
@@ -68,11 +68,12 @@
 
 
 
-      <section class="section" id="progress">
-        <div class="section-head section-head-plain"><div><h2>Контроль готовности</h2><p class="section-desc">Отмечай ближайшие задачи и обновляй проценты. Значения сохраняются только в этом браузере и не синхронизируются между участниками команды. Все показатели изначально равны нулю.</p></div></div>
-        <div class="check-progress"><strong>Ближайшие задачи / до 15 ноября</strong><span id="check-count">0 / 10</span></div><div class="track" aria-hidden="true"><span id="check-bar"></span></div><div class="checklist" id="checklist"></div>
-        <div style="display:flex;justify-content:flex-end;margin-top:12px"><button class="download" id="check-export" type="button">↧ Скачать список задач</button></div>
-        <div class="progress-outer"><div class="score-header"><div><span class="meta-line">Общая готовность / пользовательская оценка</span><span class="score" id="overall-score">0%</span></div><div class="score-label" id="score-label">Укажи текущий статус каждого направления</div></div><div class="scoretrack"><span id="score-bar"></span></div><div id="readiness-controls"></div><button class="download" id="progress-reset" style="border-color:#8d928c;color:var(--paper);margin-top:16px" type="button">Сбросить проценты</button></div>
+      <section class="section task-section" id="tasks">
+        <div class="section-head section-head-plain"><div><h2>Задачи команды</h2><p class="section-desc">Задачи и описания обновляет Маша Жул. Участники команды отмечают выполнение.</p></div></div>
+        <div class="task-toolbar"><label class="task-search">Поиск<input id="task-search" type="search" placeholder="Задача, участник или описание"></label><label>Статус<select id="task-status-filter"><option value="">Все статусы</option><option value="in_progress">В процессе</option><option value="done">Выполнено</option><option value="unset">Не отмечено</option></select></label><label>Кто выполняет<select id="task-owner-filter"><option value="">Все участники</option><option value="all">Вся команда</option><option value="design">Дизайнеры</option><option value="founder">Маша Жул</option><option value="pr">Ксюша Киреенко</option><option value="journalists">Журналисты</option></select></label></div>
+        <div class="task-summary-line"><span id="task-summary"></span><span id="task-sync-status" role="status"></span><button id="task-sync-retry" class="task-retry" type="button" hidden>Повторить подключение</button></div>
+        <div class="task-table-wrap"><table class="task-table"><caption class="sr-only">Задачи команды ERA с датами, ответственными и отметками выполнения</caption><thead><tr><th scope="col">Дата</th><th scope="col">Дедлайн</th><th scope="col">Задача</th><th scope="col">Кто выполняет</th><th scope="col">Описание задачи</th><th scope="col">Статус</th></tr></thead><tbody id="task-rows"></tbody></table></div>
+        <p id="task-announcement" class="sr-only" role="status"></p>
       </section>
       <footer class="footer">
         <div class="footer-copyright"><span class="footer-label">copyright</span><p class="footer-copy">© 2026 ERA magazine — All rights reserved.</p></div>
@@ -126,37 +127,6 @@
       {category:"Фотографы",image:111,members:[],about:"В процессе отбора. Съёмки героев и визуальные материалы журнала."},
       {category:"Видеографы",image:112,members:[],about:"В процессе отбора. Видео и мультимедийные материалы."}
     ];
-    const checklistTasks = [
-      ["Утвердить 15 потенциальных героев и 2–3 резервных","Редакция"],
-      ["Подготовить досье и возможные ракурсы","Настя · Слава"],
-      ["Согласовать рубрики и форматы","Маша Жул · Соня · журналисты"],
-      ["Собрать черновой flatplan на 80 страниц","Маша Жул"],
-      ["Утвердить редакционные правила и ToV v1","Маша Жул · Соня · Лёша"],
-      ["Разослать приглашения героям","Настя · Слава"],
-      ["Составить календарь интервью и съёмок на 16–30 ноября","Редакция"],
-      ["Выбрать направления айдентики и начать тесты","Маша Жул · Маша"],
-      ["Запросить условия, бюджет и сроки у типографий","Маша Жул · Ксюша"],
-      ["Собрать общую доску с дедлайнами и ответственными","Маша Жул"]
-    ];
-    const readiness = [
-      {key:"editorial",label:"Редакционные материалы",weight:30},
-      {key:"layout",label:"Дизайн и вёрстка",weight:35},
-      {key:"identity",label:"Айдентика",weight:10},
-      {key:"web",label:"Сайт и digital",weight:10},
-      {key:"social",label:"SMM и PR",weight:10},
-      {key:"print",label:"Печать и дистрибуция",weight:5}
-    ];
-    const concepts = {
-      artist:["Артист","Музыкант — лишь одна из точек большой системы, благодаря которой возникает выступление."],
-      sound:["Звук","Звукорежиссёр формирует то, что услышит аудитория: баланс, пространство и детали."],
-      visual:["Визуал","Художники и световая команда создают визуальную сторону музыкального опыта."],
-      promoter:["Промоутер","Организатор соединяет артистов, площадку и людей, которые придут на событие."],
-      engineer:["Инженер","Создатель инструментов и технологий расширяет саму возможность звучания."]
-    };
-    const KEY="era-editorial-v1";
-    const saved = (()=>{try{const v=JSON.parse(localStorage.getItem(KEY)||"{}");return v && typeof v==="object"?v:{}}catch{return {}}})();
-    const state={checked:Array.isArray(saved.checked)?saved.checked.filter(x=>Number.isInteger(x)&&x>=0&&x<checklistTasks.length):[],readiness:(saved.readiness&&typeof saved.readiness==="object")?saved.readiness:{},month:"Все"};
-    function persist(){try{localStorage.setItem(KEY,JSON.stringify({checked:state.checked,readiness:state.readiness}))}catch(e){/* works without storage */}}
     function download(name,content,type="text/plain;charset=utf-8"){const blob=new Blob([content],{type});const url=URL.createObjectURL(blob);const a=document.createElement("a");a.href=url;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000)}
     function textNode(tag,cls,value){const el=document.createElement(tag);if(cls)el.className=cls;el.textContent=value;return el}
     const calendarMonths=["Сентябрь","Октябрь","Ноябрь","Декабрь","Январь","Февраль","Март","Апрель","Май"];
@@ -267,16 +237,9 @@
         list.querySelectorAll(".team-category").forEach(card=>teamObserver.observe(card));
       }
     }
-    function updateChecklist(){const n=state.checked.length;document.getElementById("check-count").textContent=`${n} / ${checklistTasks.length}`;document.getElementById("check-bar").style.width=(n/checklistTasks.length*100)+"%"}
-    function renderChecklist(){const el=document.getElementById("checklist");checklistTasks.forEach((t,i)=>{const row=document.createElement("label");row.className="checkrow";const inp=document.createElement("input");inp.type="checkbox";inp.checked=state.checked.includes(i);inp.setAttribute("aria-label",t[0]);inp.addEventListener("change",()=>{state.checked=inp.checked?[...state.checked.filter(x=>x!==i),i]:state.checked.filter(x=>x!==i);persist();updateChecklist()});const info=document.createElement("span");info.append(textNode("span","check-main",t[0]),textNode("span","check-owner",t[1]));row.append(inp,info);el.append(row)});updateChecklist()}
-    function getPercent(key){const v=Number(state.readiness[key]);return Number.isFinite(v)?Math.max(0,Math.min(100,Math.round(v))):0}
-    function updateProgress(){const score=readiness.reduce((sum,x)=>sum+x.weight*getPercent(x.key)/100,0);document.getElementById("overall-score").textContent=score.toFixed(1).replace(".0","")+"%";document.getElementById("score-bar").style.width=score+"%";document.getElementById("score-label").textContent=score>=70?"Плановый рубеж 70% достигнут":"Рубеж мартовского просмотра — 70%";document.querySelectorAll(".range-row").forEach(row=>{const key=row.dataset.key;row.querySelector(".range-value").textContent=getPercent(key)+"%";row.querySelector("input").value=String(getPercent(key))})}
-    function renderProgress(){const el=document.getElementById("readiness-controls");readiness.forEach(item=>{const row=document.createElement("div");row.className="range-row";row.dataset.key=item.key;const label=document.createElement("label");label.htmlFor="range-"+item.key;label.append(document.createTextNode(item.label),textNode("small","",`Вес в проекте — ${item.weight}%`));const input=document.createElement("input");input.id="range-"+item.key;input.type="range";input.min="0";input.max="100";input.step="5";input.value=String(getPercent(item.key));input.addEventListener("input",()=>{state.readiness[item.key]=Number(input.value);persist();updateProgress()});row.append(label,input,textNode("span","range-value","0%"));el.append(row)});updateProgress()}
     function makeWave(){const svg=document.getElementById("wave-svg");const ns="http://www.w3.org/2000/svg";for(let i=0;i<96;i++){const rect=document.createElementNS(ns,"rect");const x=i*10+1;const envelope=Math.abs(Math.sin(i*.175)*Math.cos(i*.071+1.2));const burst=Math.abs(Math.sin(i*.75)*Math.cos(i*.27));const h=12+244*Math.pow(.37*envelope+.63*burst,.97);rect.setAttribute("x",x);rect.setAttribute("y",(310-h)/2);rect.setAttribute("width",i%7===0?5:2.1);rect.setAttribute("height",h);rect.setAttribute("fill",i%11===0?"#f25332":"#e3e2dc");rect.setAttribute("opacity",String(.46+(i%7)*.065));svg.append(rect)}const line=document.createElementNS(ns,"path");let path="";for(let i=0;i<96;i++){let y=155+Math.sin(i*.27)*Math.sin(i*.045+2.1)*66+Math.cos(i*.91)*15;path+=(i===0?"M":"L")+(i*10+2)+" "+y+" "}line.setAttribute("d",path);line.setAttribute("fill","none");line.setAttribute("stroke","#f25332");line.setAttribute("stroke-width","1.7");line.setAttribute("opacity",".95");svg.append(line)}
     document.getElementById("schedule-export").addEventListener("click",()=>{const esc=s=>'"'+String(s).replaceAll('"','""')+'"';const csv=["Период,Задача,Описание,Ответственные,Результат",...calendarEvents.map(x=>[x.date,x.title,x.detail,x.owners,x.output].map(esc).join(","))].join("\r\n");download("ERA-production-calendar.csv","\uFEFF"+csv,"text/csv;charset=utf-8")});
-    document.getElementById("check-export").addEventListener("click",()=>{download("ERA-checklist.txt",checklistTasks.map((t,i)=>`${state.checked.includes(i)?"[x]":"[ ]"} ${t[0]} — ${t[1]}`).join("\n"))});
-    document.getElementById("progress-reset").addEventListener("click",()=>{if(window.confirm("Сбросить все проценты готовности к 0? Отметки задач сохранятся.")){state.readiness={};persist();updateProgress()}});
-    renderSchedule();renderTeam();renderChecklist();renderProgress();makeWave();
+    renderSchedule();renderTeam();makeWave();
     const deadlineAt=Date.parse("2027-05-20T00:00:00+03:00");
     const deadlineTimer=document.getElementById("deadline-timer");
     function updateDeadlineCountdown(){
@@ -307,6 +270,9 @@
     }else{startPrint()}
 
   </script>
+  <script src="assets/tasks-data.js?v=453fa4517390"></script>
+  <script src="assets/tasks-config.js?v=6a74209e40ee"></script>
+  <script src="assets/tasks.js?v=54595c2d597a"></script>
   <script src="assets/navigation.js?v=41f5e35491aa"></script>
 </body>
 </html>
