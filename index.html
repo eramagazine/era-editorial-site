@@ -179,6 +179,18 @@
     @keyframes carriage-pass{from{left:18px}to{left:calc(100% - 56px)}}
     @media(prefers-reduced-motion:reduce){.print-carriage,.print-replay{display:none}}
     @media print{.print-carriage,.print-replay{display:none!important}.spectrum:before,.spectrum #wave-svg{animation:none!important;clip-path:none!important}}
+    .mobile-menu{position:fixed;inset:0;width:100%;max-width:none;height:100%;height:100dvh;max-height:none;margin:0;border:0;padding:28px 24px max(28px,env(safe-area-inset-bottom));color:var(--ink);background:linear-gradient(90deg,rgba(60,50,35,.08),transparent 22px),var(--paper);box-shadow:12px 0 45px rgba(0,0,0,.2);overflow-y:auto}
+    .mobile-menu[open]{animation:page-slide-in .48s cubic-bezier(.22,.8,.25,1) both}
+    .mobile-menu[open].is-closing{animation:page-slide-out .32s ease-in both}
+    .mobile-menu::backdrop{background:rgba(30,28,25,.25)}
+    .mobile-menu:after{content:"";position:fixed;top:0;bottom:0;right:0;width:8px;pointer-events:none;background:linear-gradient(90deg,transparent,rgba(255,255,255,.55),rgba(40,35,25,.12))}
+    .mobile-menu-heading{display:flex;align-items:center;justify-content:space-between;gap:20px;margin-bottom:36px;font:11px var(--mono)}
+    .mobile-menu-close{border:1px solid var(--line);border-radius:50%;width:44px;height:44px;background:transparent;color:var(--ink);font-size:28px;line-height:1}
+    .mobile-menu nav{display:flex;flex-direction:column}.mobile-menu nav a{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:54px;padding:12px 0;border-bottom:1px solid var(--line);text-decoration:none;font-size:clamp(18px,5vw,25px);font-weight:400}.mobile-menu nav a span{font:10px var(--mono);color:var(--muted)}
+    body.mobile-menu-open{overflow:hidden}
+    @keyframes page-slide-in{from{transform:translateX(-105%) rotateY(5deg);transform-origin:left center}to{transform:translateX(0) rotateY(0)}}
+    @keyframes page-slide-out{from{transform:translateX(0)}to{transform:translateX(-105%)}}
+    @media print{.mobile-menu{display:none!important}}
     @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;transition:none!important;animation:none!important}}
     @media print{.topbar,.sidebar,.tools,.download,.concept-controls,.checklist,.progress-outer,.footer{display:none!important}.shell{display:block;max-width:none;padding:0}.section{break-inside:avoid;padding:24px 0}.hero{padding:20px 0}.page-info{position:static}.spectrum{height:140px;-webkit-print-color-adjust:exact;print-color-adjust:exact}body{font-size:12px}}
   </style>
@@ -189,6 +201,10 @@
     <a class="top-logo" href="#top" aria-label="ERA — к началу"><img src="Frame%2049.png" alt="ERA" width="44" height="44"><span>ELECTRONIC RUSSIAN ASSOCIATION</span></a>
     <span class="edition">ISSUE 001 / 2026—27</span>
   </header>
+  <dialog id="mobile-section-menu" class="mobile-menu" aria-labelledby="mobile-menu-title">
+    <div class="mobile-menu-heading"><span id="mobile-menu-title">Разделы / ERA</span><button class="mobile-menu-close" type="button" aria-label="Закрыть меню">×</button></div>
+    <nav aria-label="Разделы страницы"></nav>
+  </dialog>
   <div class="shell">
     <aside class="sidebar" aria-label="Разделы страницы">
       <div id="section-sidebar">
@@ -438,12 +454,41 @@
       sectionSidebar.hidden=collapsed;
       shell.classList.toggle("sidebar-collapsed",collapsed);
       sidebarToggle.setAttribute("aria-expanded",String(!collapsed));
+      sidebarToggle.setAttribute("aria-controls",window.matchMedia("(max-width:850px)").matches?"mobile-section-menu":"section-sidebar");
       sidebarToggle.textContent=collapsed?"Открыть меню":"Скрыть меню";
     }
-    let sidebarCollapsed=window.matchMedia("(max-width:850px)").matches;
+    const mobileViewport=window.matchMedia("(max-width:850px)");
+    const mobileMenu=document.querySelector(".mobile-menu");
+    const mobileClose=mobileMenu.querySelector(".mobile-menu-close");
+    document.querySelectorAll(".side-nav a").forEach(link=>mobileMenu.querySelector("nav").append(link.cloneNode(true)));
+    let closingMenu=false;
+    async function closeMobileMenu(target){
+      if(!mobileMenu.open||closingMenu)return;
+      closingMenu=true;
+      mobileMenu.classList.add("is-closing");
+      await Promise.allSettled(mobileMenu.getAnimations().map(animation=>animation.finished));
+      mobileMenu.close();
+      mobileMenu.classList.remove("is-closing");
+      document.body.classList.remove("mobile-menu-open");
+      sidebarToggle.setAttribute("aria-expanded","false");
+      closingMenu=false;
+      if(target){location.hash=target;document.querySelector(target)?.scrollIntoView()}
+    }
+    mobileClose.addEventListener("click",()=>closeMobileMenu());
+    mobileMenu.addEventListener("cancel",event=>{event.preventDefault();closeMobileMenu()});
+    mobileMenu.querySelectorAll("nav a").forEach(link=>link.addEventListener("click",event=>{event.preventDefault();closeMobileMenu(link.getAttribute("href"))}));
+    mobileViewport.addEventListener("change",()=>{if(mobileMenu.open)closeMobileMenu();if(mobileViewport.matches)setSidebarCollapsed(true)});
+    let sidebarCollapsed=mobileViewport.matches;
     try{const stored=localStorage.getItem(sidebarStorageKey);if(stored!==null)sidebarCollapsed=stored==="true"}catch{}
-    setSidebarCollapsed(sidebarCollapsed);
+    setSidebarCollapsed(mobileViewport.matches?true:sidebarCollapsed);
     sidebarToggle.addEventListener("click",()=>{
+      if(mobileViewport.matches){
+        mobileMenu.showModal();
+        document.body.classList.add("mobile-menu-open");
+        sidebarToggle.setAttribute("aria-expanded","true");
+        mobileClose.focus();
+        return;
+      }
       const collapsed=!sectionSidebar.hidden;
       setSidebarCollapsed(collapsed);
       try{localStorage.setItem(sidebarStorageKey,String(collapsed))}catch{}
