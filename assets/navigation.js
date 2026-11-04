@@ -25,6 +25,11 @@ menuToggle.addEventListener("click",()=>{
   mobileClose.focus();
 });
 mobileClose.addEventListener("click",()=>closeMobileMenu());
+mobileMenu.addEventListener("click",event=>{
+  if(event.target!==mobileMenu)return;
+  const bounds=mobileMenu.getBoundingClientRect();
+  if(event.clientX<bounds.left||event.clientX>bounds.right||event.clientY<bounds.top||event.clientY>bounds.bottom)closeMobileMenu();
+});
 mobileMenu.addEventListener("cancel",event=>{event.preventDefault();closeMobileMenu()});
 mobileMenu.querySelectorAll("nav a").forEach(link=>link.addEventListener("click",event=>{event.preventDefault();closeMobileMenu(link.getAttribute("href"))}));
 mobileViewport.addEventListener("change",()=>{if(mobileMenu.open)closeMobileMenu();desktopDepartments.open=false});

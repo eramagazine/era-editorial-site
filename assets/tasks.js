@@ -6,6 +6,7 @@
   const search=document.getElementById("task-search");
   const statusFilter=document.getElementById("task-status-filter");
   const ownerFilter=document.getElementById("task-owner-filter");
+  ownerFilter.replaceChildren(new Option("Все участники",""),new Option("Вся команда","all"),...(window.ERA_TASK_PEOPLE||[]).map(name=>new Option(name,name)));
   const summary=document.getElementById("task-summary");
   const syncStatus=document.getElementById("task-sync-status");
   let completion={};
@@ -21,7 +22,7 @@
   function persist(){try{localStorage.setItem(storageKey,JSON.stringify(completion))}catch{syncStatus.textContent="Не удалось сохранить отметки в браузере."}}
   function render(){
     const query=search.value.trim().toLocaleLowerCase("ru");
-    const filtered=tasks.filter(task=>(!query||[task.title,task.owner,...task.description].join(" ").toLocaleLowerCase("ru").includes(query))&&(!statusFilter.value||status(task)===statusFilter.value)&&(!ownerFilter.value||task.group===ownerFilter.value));
+    const filtered=tasks.filter(task=>(!query||[task.title,task.owner,...task.description].join(" ").toLocaleLowerCase("ru").includes(query))&&(!statusFilter.value||status(task)===statusFilter.value)&&(!ownerFilter.value||(ownerFilter.value==="all"?task.group==="all":task.group==="all"||(task.assignees||[]).includes(ownerFilter.value))));
     const done=tasks.filter(completed).length;summary.textContent=`Выполнено ${done} из ${tasks.length} · Показано ${filtered.length}`;
     tbody.replaceChildren();
     filtered.forEach(task=>{
@@ -29,7 +30,7 @@
       const date=el("td","task-created",formatDate(task.created));date.dataset.label="Дата";
       const deadline=el("td","task-deadline");deadline.dataset.label="Дедлайн";deadline.append(el("span","",formatDate(task.deadline)));if(task.extended)deadline.append(el("span","task-extended","Дедлайн продлён"));
       const title=el("th","task-title",task.title);title.scope="row";title.dataset.label="Задача";
-      const owner=el("td","task-owner");owner.dataset.label="Кто выполняет";const badge=el("span","task-owner-label",task.owner);badge.dataset.group=task.group;owner.append(badge);
+      const owner=el("td","task-owner");owner.dataset.label="Кто выполняет";const badges=el("div","task-owner-labels");(task.assignees?.length?task.assignees:["Все"]).forEach(name=>{const badge=el("span","task-owner-label",name);badge.dataset.group=task.group;badges.append(badge)});owner.append(badges);
       const description=el("td","task-description");description.dataset.label="Описание задачи";
       if(task.description.length){
         description.append(el("p","task-description-preview",task.description[0]));
