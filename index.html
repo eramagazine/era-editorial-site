@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#eeeae2">
   <meta name="description" content="ERA — редакционный и производственный план первого выпуска: сроки, команда, редакционный цикл, рубрики, flatplan и контроль готовности.">
   <title>ERA — Редакционная система / выпуск 01</title>
-  <link rel="stylesheet" href="assets/site.3a4a29c5a142.css">
+  <link rel="stylesheet" href="assets/site.7393ec21a916.css">
 </head>
 <body>
   <a class="skip" href="#main">К содержанию</a>
@@ -33,7 +33,6 @@
       <section class="hero" id="top">
         <div class="hero-heading">
           <h1 class="hero-title">ЭРА №01</h1>
-          <div class="hero-stamp deadline-countdown"><span>ДО ДЕДЛАЙНА / 20.05.2027</span><div id="deadline-timer" role="timer" aria-live="off" aria-label="Обратный отсчёт до 20 мая 2027, 00:00 по Москве">—</div><span>ДНИ : ЧАСЫ : МИН : СЕК · МСК</span></div>
           <div class="eyebrow hero-caption"><span class="roundel"></span>Редакционная система / внутренний документ</div>
         </div>
         <div class="spectrum" aria-label="Абстрактная визуализация звукового сигнала как элемент айдентики">
@@ -45,6 +44,11 @@
         <button class="print-replay" type="button" aria-label="Повторить анимацию печати">↻ Повторить печать</button>
       </section>
 
+
+      <section class="section" id="team">
+        <div class="section-head section-head-plain"><div><h2>Команда</h2><p class="team-instruction">8 направлений · Нажми на карточку, чтобы познакомиться с участниками.</p></div></div>
+        <div class="team-grid" id="team-list"></div>
+      </section>
 
       <section class="section" id="schedule">
         <div class="section-head section-head-plain"><div><h2>Производственный календарь</h2><p class="section-desc">Сентябрь 2026 — май 2027. Листай месяцы и нажимай на день или цветную полосу периода, чтобы открыть задачи. Даты плановые и могут уточняться.</p></div></div>
@@ -58,10 +62,6 @@
         <dialog id="calendar-dialog" aria-labelledby="calendar-dialog-title"><div class="calendar-dialog-heading"><h2 id="calendar-dialog-title"></h2><button id="calendar-close" type="button" aria-label="Закрыть информацию о задаче">×</button></div><div id="calendar-details"></div></dialog>
       </section>
 
-      <section class="section" id="team">
-        <div class="section-head section-head-plain"><div><h2>Команда</h2><p class="team-instruction">8 направлений · Нажми на карточку, чтобы познакомиться с участниками.</p></div></div>
-        <div class="team-grid" id="team-list"></div>
-      </section>
 
 
 
@@ -240,21 +240,6 @@
     function makeWave(){const svg=document.getElementById("wave-svg");const ns="http://www.w3.org/2000/svg";for(let i=0;i<96;i++){const rect=document.createElementNS(ns,"rect");const x=i*10+1;const envelope=Math.abs(Math.sin(i*.175)*Math.cos(i*.071+1.2));const burst=Math.abs(Math.sin(i*.75)*Math.cos(i*.27));const h=12+244*Math.pow(.37*envelope+.63*burst,.97);rect.setAttribute("x",x);rect.setAttribute("y",(310-h)/2);rect.setAttribute("width",i%7===0?5:2.1);rect.setAttribute("height",h);rect.setAttribute("fill",i%11===0?"#f25332":"#e3e2dc");rect.setAttribute("opacity",String(.46+(i%7)*.065));svg.append(rect)}const line=document.createElementNS(ns,"path");let path="";for(let i=0;i<96;i++){let y=155+Math.sin(i*.27)*Math.sin(i*.045+2.1)*66+Math.cos(i*.91)*15;path+=(i===0?"M":"L")+(i*10+2)+" "+y+" "}line.setAttribute("d",path);line.setAttribute("fill","none");line.setAttribute("stroke","#f25332");line.setAttribute("stroke-width","1.7");line.setAttribute("opacity",".95");svg.append(line)}
     document.getElementById("schedule-export").addEventListener("click",()=>{const esc=s=>'"'+String(s).replaceAll('"','""')+'"';const csv=["Период,Задача,Описание,Ответственные,Результат",...calendarEvents.map(x=>[x.date,x.title,x.detail,x.owners,x.output].map(esc).join(","))].join("\r\n");download("ERA-production-calendar.csv","\uFEFF"+csv,"text/csv;charset=utf-8")});
     renderSchedule();renderTeam();makeWave();
-    const deadlineAt=Date.parse("2027-05-20T00:00:00+03:00");
-    const deadlineTimer=document.getElementById("deadline-timer");
-    function updateDeadlineCountdown(){
-      const seconds=Math.max(0,Math.ceil((deadlineAt-Date.now())/1000));
-      const days=Math.floor(seconds/86400);
-      const hours=Math.floor(seconds%86400/3600);
-      const minutes=Math.floor(seconds%3600/60);
-      const remainingSeconds=seconds%60;
-      deadlineTimer.textContent=[days,hours,minutes,remainingSeconds].map(value=>String(value).padStart(2,"0")).join(" : ");
-      deadlineTimer.setAttribute("aria-label",seconds===0?"Дедлайн наступил":`До дедлайна: ${days} дн., ${hours} ч., ${minutes} мин., ${remainingSeconds} сек.`);
-      return seconds;
-    }
-    if(updateDeadlineCountdown()>0){
-      const deadlineInterval=setInterval(()=>{if(updateDeadlineCountdown()===0)clearInterval(deadlineInterval)},1000);
-    }
     const printArtwork=document.querySelector(".spectrum");
     function startPrint(){
       printArtwork.classList.remove("is-printing");
