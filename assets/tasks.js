@@ -17,7 +17,7 @@
   const completed=task=>typeof completion[task.id]==="boolean"?completion[task.id]:task.status==="done";
   const status=task=>completed(task)?"done":task.status==="done"?"in_progress":task.status;
   const labels={done:"Выполнено",in_progress:"В процессе",unset:"Не отмечено"};
-  const formatDate=value=>value.split("-").reverse().map((p,i)=>i===2?p.slice(-2):p).join(".");
+  const formatDate=value=>value?value.split("-").reverse().map((p,i)=>i===2?p.slice(-2):p).join("."):"Не указан";
   function persist(){try{localStorage.setItem(storageKey,JSON.stringify(completion))}catch{syncStatus.textContent="Не удалось сохранить отметки в браузере."}}
   function render(){
     const query=search.value.trim().toLocaleLowerCase("ru");
@@ -41,7 +41,7 @@
       }else description.append(el("span","task-no-description","Описание пока не добавлено"));
       const state=el("td","task-state");state.dataset.label="Статус";
       const label=el("label","task-complete");label.dataset.status=status(task);
-      const checkbox=el("input");checkbox.type="checkbox";checkbox.checked=completed(task);checkbox.disabled=!sharedReady||pending.has(task.id);checkbox.setAttribute("aria-label",`Выполнено: ${task.title}`);
+      const checkbox=el("input");checkbox.type="checkbox";checkbox.checked=completed(task);checkbox.disabled=!sharedReady||(config.mode==="supabase"&&typeof completion[task.id]!=="boolean")||pending.has(task.id);if(sharedReady&&config.mode==="supabase"&&typeof completion[task.id]!=="boolean")checkbox.title="Отметка станет доступна после подключения новой задачи к общей базе";checkbox.setAttribute("aria-label",`Выполнено: ${task.title}`);
       checkbox.addEventListener("change",()=>setComplete(task,checkbox.checked));label.append(checkbox,el("span","",labels[status(task)]));state.append(label);
       row.append(date,deadline,title,owner,description,state);tbody.append(row);
     });
@@ -60,10 +60,10 @@
       const rows=await response.json();if(!Array.isArray(rows))throw new Error("format");
       if(started!==latestWrite||pending.size)return;
       const remote=Object.fromEntries(rows.filter(row=>typeof row.done==="boolean").map(row=>[row.id,row.done]));
-      if(tasks.some(task=>typeof remote[task.id]!=="boolean"))throw new Error("missing tasks");
-      const changed=!sharedReady||tasks.some(task=>completed(task)!==remote[task.id]);
-      completion=remote;sharedReady=true;syncStatus.textContent="Общие отметки · Синхронизация каждые 10 секунд";
-      document.getElementById("task-sync-retry").hidden=true;if(changed)render();
+      const missing=tasks.filter(task=>typeof remote[task.id]!=="boolean").length;
+      const changed=!sharedReady||tasks.some(task=>completion[task.id]!==remote[task.id]);
+      completion=remote;sharedReady=true;syncStatus.textContent=missing?`Общие отметки подключены. Для новых задач (${missing}) требуется настройка в базе.`:"Общие отметки · Синхронизация каждые 10 секунд";
+      document.getElementById("task-sync-retry").hidden=!missing;if(changed)render();
     }catch{
       if(!sharedReady){syncStatus.textContent="Общие отметки недоступны. Проверьте подключение и повторите загрузку.";render()}
       else syncStatus.textContent="Не удалось обновить общие отметки. Повторим автоматически.";
