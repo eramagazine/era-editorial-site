@@ -7,6 +7,9 @@
   <meta name="description" content="ERA — редакционный и производственный план первого выпуска: сроки, команда, редакционный цикл, рубрики, flatplan и контроль готовности.">
   <title>ERA — Редакционная система / выпуск 01</title>
   <style>
+    @font-face{font-family:"Fira Sans";font-style:normal;font-weight:400;font-display:swap;src:url("assets/fonts/fira-sans/FiraSans-Regular.ttf") format("truetype")}
+    @font-face{font-family:"Fira Sans";font-style:normal;font-weight:600;font-display:swap;src:url("assets/fonts/fira-sans/FiraSans-SemiBold.ttf") format("truetype")}
+    @font-face{font-family:"Fira Sans";font-style:normal;font-weight:700;font-display:swap;src:url("assets/fonts/fira-sans/FiraSans-Bold.ttf") format("truetype")}
     @font-face{font-family:"Fira Mono";font-style:normal;font-weight:400;font-display:swap;src:url("assets/fonts/fira-mono/FiraMono-Regular.ttf") format("truetype")}
     @font-face{font-family:"Fira Mono";font-style:normal;font-weight:500;font-display:swap;src:url("assets/fonts/fira-mono/FiraMono-Medium.ttf") format("truetype")}
     @font-face{font-family:"Fira Mono";font-style:normal;font-weight:700;font-display:swap;src:url("assets/fonts/fira-mono/FiraMono-Bold.ttf") format("truetype")}
@@ -17,6 +20,7 @@
       --cyan:#367f79; --violet:#77619d; --gold:#a47731;
       --font: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
       --mono: "Fira Mono", monospace;
+      --fira-sans: "Fira Sans", var(--font);
       --page-gutter:24px;
     }
     *,*::before,*::after{box-sizing:border-box}
@@ -230,6 +234,14 @@
 
     .deadline-countdown{flex-shrink:0}.deadline-countdown>span{font-size:9px}#deadline-timer{font:500 24px/1.5 var(--mono);font-variant-numeric:tabular-nums;color:var(--ink);white-space:nowrap}
     @media(max-width:600px){.hero-top{flex-wrap:wrap}.deadline-countdown>span{font-size:8px}#deadline-timer{font-size:19px}}
+    .hero-heading .hero-title,#schedule .section-head h2,#team .section-head h2{font-family:var(--fira-sans)}
+    .section-head.section-head-plain{grid-template-columns:minmax(0,1fr)}
+    .calendar-footer{justify-content:flex-end}
+    .footer{align-items:flex-start;justify-content:flex-start;gap:clamp(32px,6vw,100px);flex-wrap:wrap;text-align:left}
+    .footer-label{display:block;font:10px/1.5 var(--mono);color:var(--muted);margin-bottom:12px}
+    .footer-copy,.footer-social-links{font:400 clamp(18px,2vw,26px)/1.4 var(--fira-sans);margin:0}
+    .footer-social-links{display:flex;gap:24px}.footer-social-links a{text-decoration:none;text-underline-offset:5px}.footer-social-links a:hover{text-decoration:underline}
+    @media(max-width:600px){.footer{gap:28px;flex-direction:column}.footer-label{margin-bottom:8px}.footer-copy,.footer-social-links{font-size:20px}}
     @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;transition:none!important;animation:none!important}}
     @media print{.topbar,.sidebar,.tools,.download,.concept-controls,.checklist,.progress-outer,.footer{display:none!important}.shell{display:block;max-width:none;padding:0}.section{break-inside:avoid;padding:24px 0}.hero{padding:20px 0}.page-info{position:static}.spectrum{height:140px;-webkit-print-color-adjust:exact;print-color-adjust:exact}body{font-size:12px}}
   </style>
@@ -282,27 +294,26 @@
 
 
       <section class="section" id="schedule">
-        <div class="section-head"><span class="section-number">01 / СРОКИ</span><div><h2>Производственный календарь</h2><p class="section-desc">Ноябрь 2026 — май 2027. Листай месяцы и нажимай на день или цветную полосу периода, чтобы открыть задачи. Даты плановые и могут уточняться.</p></div></div>
+        <div class="section-head section-head-plain"><div><h2>Производственный календарь</h2><p class="section-desc">Ноябрь 2026 — май 2027. Листай месяцы и нажимай на день или цветную полосу периода, чтобы открыть задачи. Даты плановые и могут уточняться.</p></div></div>
         <div class="calendar-sheet">
           <div class="calendar-toolbar"><div><span class="meta-line">План производства / ЭРА №01</span><h3 id="calendar-title" aria-live="polite"></h3></div><div class="calendar-pager"><button id="calendar-prev" type="button" aria-label="Предыдущий месяц">←</button><label class="sr-only" for="calendar-month">Месяц календаря</label><select id="calendar-month"><option value="0">Ноябрь 2026</option><option value="1">Декабрь 2026</option><option value="2">Январь 2027</option><option value="3">Февраль 2027</option><option value="4">Март 2027</option><option value="5">Апрель 2027</option><option value="6">Май 2027</option></select><button id="calendar-next" type="button" aria-label="Следующий месяц">→</button></div></div>
           <div class="calendar-weekdays" aria-hidden="true"><span>Пн</span><span>Вт</span><span>Ср</span><span>Чт</span><span>Пт</span><span>Сб</span><span>Вс</span></div>
           <div id="calendar-grid" aria-label="Дни и периоды выбранного месяца"></div>
           <p class="calendar-hint">Цветная полоса — производственный период. Нажми на неё или на число дня.</p>
         </div>
-        <div class="calendar-footer"><span class="meta-line">Все даты — плановые</span><button class="download" id="schedule-export" type="button">↧ CSV календарь</button></div>
+        <div class="calendar-footer"><button class="download" id="schedule-export" type="button">↧ CSV календарь</button></div>
         <dialog id="calendar-dialog" aria-labelledby="calendar-dialog-title"><div class="calendar-dialog-heading"><h2 id="calendar-dialog-title"></h2><button id="calendar-close" type="button" aria-label="Закрыть информацию о задаче">×</button></div><div id="calendar-details"></div></dialog>
       </section>
 
       <section class="section" id="team">
-        <div class="section-head"><span class="section-number">02 / КОМАНДА</span><div><h2>Кто отвечает за результат</h2><p class="section-desc">Финальное согласование и содержательная редактура — разные функции. Это помогает тебе управлять изданием, не переписывая все тексты самостоятельно.</p></div></div>
+        <div class="section-head section-head-plain"><div><h2>Кто отвечает за результат</h2><p class="section-desc">Финальное согласование и содержательная редактура — разные функции. Это помогает Маше Жул управлять изданием, не переписывая все тексты самостоятельно.</p></div></div>
         <div class="team-grid" id="team-list"></div>
-        <p class="note"><strong>Предложение:</strong> Соня ведёт статусы редакционного производства, журналисты прикладывают источники, ты утверждаешь содержательное направление и финальный материал. Внешних фотографов, разработчика и типографию закрепите отдельными задачами.</p>
       </section>
 
       <section class="section" id="workflow">
-        <div class="section-head"><span class="section-number">03 / PROCESS</span><div><h2>Как рождается материал</h2><p class="section-desc">Единый редакционный цикл для интервью, профайлов, репортажей и исследовательских историй. Работать можно параллельно, но нельзя пропускать проверку и утверждение.</p></div></div>
+        <div class="section-head section-head-plain"><div><h2>Как рождается материал</h2><p class="section-desc">Единый редакционный цикл для интервью, профайлов, репортажей и исследовательских историй. Работать можно параллельно, но нельзя пропускать проверку и утверждение.</p></div></div>
         <div class="pipeline" id="pipeline-list"></div>
-        <p class="note"><strong>Редакционная логика:</strong> сначала ресёрч и гипотеза, затем вопросы. Готовый текст — это текст после редактуры, подтверждения фактов и твоего согласования. После вёрстки Соня отдельно проверяет уже свёрстанные полосы.</p>
+        <p class="note"><strong>Редакционная логика:</strong> сначала ресёрч и гипотеза, затем вопросы. Готовый текст — это текст после редактуры, подтверждения фактов и согласования Маши Жул. После вёрстки Соня отдельно проверяет уже свёрстанные полосы.</p>
       </section>
 
       <section class="section" id="voice">
@@ -339,33 +350,36 @@
         <div class="progress-outer"><div class="score-header"><div><span class="meta-line">Общая готовность / пользовательская оценка</span><span class="score" id="overall-score">0%</span></div><div class="score-label" id="score-label">Укажи текущий статус каждого направления</div></div><div class="scoretrack"><span id="score-bar"></span></div><div id="readiness-controls"></div><button class="download" id="progress-reset" style="border-color:#8d928c;color:var(--paper);margin-top:16px" type="button">Сбросить проценты</button></div>
         <p class="note"><strong>Внимание:</strong> общая готовность — условная взвешенная оценка для внутренней планёрки. К марту целевой ориентир — 70% всего проекта, при закрытых текстах и примерно 70% вёрстки. Реальные сроки выпуска могут зависеть от типографии, разрешений и партнёров.</p>
       </section>
-      <footer class="footer"><div class="footer-mark">ERA.</div><small>ISSUE 001 / EDITORIAL SYSTEM<br>Время перемен. 2026—2027<br>Внутренний рабочий документ</small></footer>
+      <footer class="footer">
+        <div class="footer-copyright"><span class="footer-label">copyright</span><p class="footer-copy">© 2026 ERA magazine — All rights reserved.</p></div>
+        <div class="footer-socials"><span class="footer-label">socials</span><div class="footer-social-links"><a href="https://www.instagram.com/era.magazinee?stkn=MWh4OGViNHFueG9nNg==" aria-label="ERA magazine в Instagram">IG</a><a href="https://t.me/eramagazinee" aria-label="ERA magazine в Telegram">TG</a></div></div>
+      </footer>
     </main>
   </div>
   <script>
     "use strict";
     const schedule = [
-      {month:"Ноя",date:"3–11 ноя",title:"Редакционная структура",detail:"Финализация предварительного списка 15 героев, первичный ресёрч, темы, рубрики, старт дизайн-исследования.",owners:"Ты · Настя · Слава · Соня · дизайн",output:"Лонг-лист, редакционная карта, черновой flatplan"},
+      {month:"Ноя",date:"3–11 ноя",title:"Редакционная структура",detail:"Финализация предварительного списка 15 героев, первичный ресёрч, темы, рубрики, старт дизайн-исследования.",owners:"Маша Жул · Настя · Слава · Соня · дизайн",output:"Лонг-лист, редакционная карта, черновой flatplan"},
       {month:"Ноя",date:"12–15 ноя",title:"Контакты и договорённости",detail:"Найти контакты, написать героям, согласовать место, формат и время интервью.",owners:"Настя · Слава",output:"Подтверждённые встречи и календарь съёмок"},
-      {month:"Ноя",date:"16–30 ноя",title:"Интервью и визуальные концепции",detail:"Очные интервью, репортажи, фотосъёмки, сбор документов и архивов. Параллельно — логотип, айдентика, первые макеты.",owners:"Журналисты · ты · Маша · фото",output:"Исходники интервью и 2–3 визуальных направления"},
+      {month:"Ноя",date:"16–30 ноя",title:"Интервью и визуальные концепции",detail:"Очные интервью, репортажи, фотосъёмки, сбор документов и архивов. Параллельно — логотип, айдентика, первые макеты.",owners:"Журналисты · Маша Жул · Маша · фото",output:"Исходники интервью и 2–3 визуальных направления"},
       {month:"Дек",date:"1–7 дек",title:"Первые материалы",detail:"Расшифровки, начало написания, содержательная редактура, выбор общей визуальной системы.",owners:"Настя · Слава · Соня · дизайн",output:"Первые утверждённые тексты и направление айдентики"},
-      {month:"Дек",date:"8–15 дек",title:"Первая вёрстка",detail:"Тестирование сеток, типографики, фотографии, продолжение интервью, шаблоны для соцсетей.",owners:"Ты · Маша · редакция · Лёша",output:"Рабочий шаблон журнала и первые развороты"},
+      {month:"Дек",date:"8–15 дек",title:"Первая вёрстка",detail:"Тестирование сеток, типографики, фотографии, продолжение интервью, шаблоны для соцсетей.",owners:"Маша Жул · Маша · редакция · Лёша",output:"Рабочий шаблон журнала и первые развороты"},
       {month:"Дек",date:"16–31 дек",title:"Первый производственный рубеж",detail:"Доработка текстов, фактчекинг, оформление разделов, составление контент-плана медиа.",owners:"Редакция · дизайн · Лёша",output:"50% готового текста · 30% вёрстки"},
-      {month:"Янв",date:"1–15 янв",title:"Закрытие недостающих материалов",detail:"Дополнительные интервью, проверка источников и прав на фото, редактура, вёрстка.",owners:"Настя · Слава · Соня · ты · Маша",output:"75–85% текста · примерно 40% вёрстки"},
-      {month:"Янв",date:"16–31 янв",title:"Editorial freeze",detail:"Утверждение всех текстов, заголовков, подписей и справок. Далее — только обоснованные исправления.",owners:"Журналисты · Соня · ты",output:"100% текста · 50% вёрстки"},
-      {month:"Фев",date:"1–14 фев",title:"Первые пробы печати и сайт",detail:"Тесты бумаги, красок и переплёта; технические требования к PDF. Прототип сайта и интерактивной страницы.",owners:"Ты · Маша · разработчик · типография",output:"Тестовые отпечатки и web-прототип"},
+      {month:"Янв",date:"1–15 янв",title:"Закрытие недостающих материалов",detail:"Дополнительные интервью, проверка источников и прав на фото, редактура, вёрстка.",owners:"Настя · Слава · Соня · Маша Жул · Маша",output:"75–85% текста · примерно 40% вёрстки"},
+      {month:"Янв",date:"16–31 янв",title:"Editorial freeze",detail:"Утверждение всех текстов, заголовков, подписей и справок. Далее — только обоснованные исправления.",owners:"Журналисты · Соня · Маша Жул",output:"100% текста · 50% вёрстки"},
+      {month:"Фев",date:"1–14 фев",title:"Первые пробы печати и сайт",detail:"Тесты бумаги, красок и переплёта; технические требования к PDF. Прототип сайта и интерактивной страницы.",owners:"Маша Жул · Маша · разработчик · типография",output:"Тестовые отпечатки и web-прототип"},
       {month:"Фев",date:"15–28 фев",title:"Партнёрства и digital",detail:"Закрепление рекламных форматов, условий сотрудничества, тестирование сайта и запуск цифровых тизеров.",owners:"Ксюша · Лёша · дизайнеры · web",output:"Партнёрские размещения · 60–65% вёрстки"},
-      {month:"Март",date:"1–8 мар",title:"Подготовка к просмотру",detail:"Финализация большей части разворотов, сбор презентации и проверка медиа-системы.",owners:"Ты · Маша · Соня · команда",output:"Подготовленные материалы для просмотра"},
+      {month:"Март",date:"1–8 мар",title:"Подготовка к просмотру",detail:"Финализация большей части разворотов, сбор презентации и проверка медиа-системы.",owners:"Маша Жул · Маша · Соня · команда",output:"Подготовленные материалы для просмотра"},
       {month:"Март",date:"9–13 мар",title:"Промежуточная защита",detail:"Оценка редакции, печати, сайта и коммуникации как единого проекта; устранение критичных проблем.",owners:"Вся команда",output:"70% общего проекта · ориентир 70% вёрстки"},
-      {month:"Март",date:"14–31 мар",title:"Сборка финальной системы",detail:"Оставшиеся развороты, сайт, подготовка предзаказа, проверка рекламы и промоматериалов.",owners:"Ты · Маша · PR · SMM · редакция",output:"Около 85–90% вёрстки · рабочий сайт"},
-      {month:"Апр",date:"1–18 апр",title:"Prepress и контроль качества",detail:"Финальная вёрстка, корректура по полосам, проверка цветопроб, изображений, обложки и требований типографии.",owners:"Ты · Маша · Соня · типография",output:"Полный макет для финального согласования"},
-      {month:"Апр",date:"19–24 апр",title:"Финальные файлы",detail:"Окончательные правки и утверждение всех полос и цифровой части; передача материалов в производство.",owners:"Ты · руководители направлений",output:"100% макета и digital, согласованный комплект файлов"},
-      {month:"Май",date:"26 апр – 14 мая",title:"Печать и подготовка защиты",detail:"Финальная печать, брошюровка, проверка экземпляров, подготовка экспозиции и презентации.",owners:"Ты · типография · команда",output:"Физический журнал и материалы презентации"},
+      {month:"Март",date:"14–31 мар",title:"Сборка финальной системы",detail:"Оставшиеся развороты, сайт, подготовка предзаказа, проверка рекламы и промоматериалов.",owners:"Маша Жул · Маша · PR · SMM · редакция",output:"Около 85–90% вёрстки · рабочий сайт"},
+      {month:"Апр",date:"1–18 апр",title:"Prepress и контроль качества",detail:"Финальная вёрстка, корректура по полосам, проверка цветопроб, изображений, обложки и требований типографии.",owners:"Маша Жул · Маша · Соня · типография",output:"Полный макет для финального согласования"},
+      {month:"Апр",date:"19–24 апр",title:"Финальные файлы",detail:"Окончательные правки и утверждение всех полос и цифровой части; передача материалов в производство.",owners:"Маша Жул · руководители направлений",output:"100% макета и digital, согласованный комплект файлов"},
+      {month:"Май",date:"26 апр – 14 мая",title:"Печать и подготовка защиты",detail:"Финальная печать, брошюровка, проверка экземпляров, подготовка экспозиции и презентации.",owners:"Маша Жул · типография · команда",output:"Физический журнал и материалы презентации"},
       {month:"Май",date:"15–19 мая",title:"Финальная проверка",detail:"Проверить экземпляры, сайт, презентацию и всё необходимое для защиты.",owners:"Вся команда",output:"Полностью готовый проект"},
-      {month:"Май",date:"с 20 мая",title:"Защита ERA",detail:"Презентация печатного и цифрового независимого медиа.",owners:"Ты · команда",output:"Выпуск № 01 представлен"}
+      {month:"Май",date:"с 20 мая",title:"Защита ERA",detail:"Презентация печатного и цифрового независимого медиа.",owners:"Маша Жул · команда",output:"Выпуск № 01 представлен"}
     ];
     const team = [
-      {name:"Ты",role:"Основатель / арт-директор",about:"Концепция, утверждение тем и героев, финальный выбор материалов, художественная система и вёрстка печатного журнала."},
+      {name:"Маша Жул",role:"Основатель / арт-директор",about:"Концепция, утверждение тем и героев, финальный выбор материалов, художественная система и вёрстка печатного журнала."},
       {name:"Настя",role:"Журналист",about:"Ресёрч, подготовка интервью, репортажи, источники и написание материалов."},
       {name:"Слава",role:"Журналист",about:"Ресёрч, подготовка интервью, сбор фактов, репортажи и авторские тексты."},
       {name:"Соня",role:"Редактор / корректор",about:"Содержательные замечания, редактура, контроль источников, финальная корректура в макете."},
@@ -378,7 +392,7 @@
       ["Research","Собрать досье и источники."],["Pitch","Предложить историю и её ценность."],["Assignment","Утвердить ракурс, формат и объём."],
       ["Pre-interview","Подготовить интервью-гайд."],["Reporting","Провести интервью и собрать факты."],["Transcription","Расшифровать и выделить сюжеты."],
       ["Writing","Собрать первый черновик."],["Editing","Содержательная и литературная редактура."],["Fact-checking","Подтвердить даты, цитаты, факты."],
-      ["Approval","Получить твоё финальное согласование."],["Layout","Сверстать текст, фото и графику."],["Proofreading","Проверить уже свёрстанный материал."]
+      ["Approval","Получить финальное согласование Маши Жул."],["Layout","Сверстать текст, фото и графику."],["Proofreading","Проверить уже свёрстанный материал."]
     ];
     const rubrics = [
       {tag:"01 / PEOPLE",name:"Главный сюжет",desc:"Глубокие истории артистов, коллективов и людей внутри сцены. Интервью, профайл, портрет."},
@@ -420,14 +434,14 @@
     const checklistTasks = [
       ["Утвердить 15 потенциальных героев и 2–3 резервных","Редакция"],
       ["Подготовить досье и возможные ракурсы","Настя · Слава"],
-      ["Согласовать рубрики и форматы","Ты · Соня · журналисты"],
-      ["Собрать черновой flatplan на 80 страниц","Ты"],
-      ["Утвердить редакционные правила и ToV v1","Ты · Соня · Лёша"],
+      ["Согласовать рубрики и форматы","Маша Жул · Соня · журналисты"],
+      ["Собрать черновой flatplan на 80 страниц","Маша Жул"],
+      ["Утвердить редакционные правила и ToV v1","Маша Жул · Соня · Лёша"],
       ["Разослать приглашения героям","Настя · Слава"],
       ["Составить календарь интервью и съёмок на 16–30 ноября","Редакция"],
-      ["Выбрать направления айдентики и начать тесты","Ты · Маша"],
-      ["Запросить условия, бюджет и сроки у типографий","Ты · Ксюша"],
-      ["Собрать общую доску с дедлайнами и ответственными","Ты"]
+      ["Выбрать направления айдентики и начать тесты","Маша Жул · Маша"],
+      ["Запросить условия, бюджет и сроки у типографий","Маша Жул · Ксюша"],
+      ["Собрать общую доску с дедлайнами и ответственными","Маша Жул"]
     ];
     const readiness = [
       {key:"editorial",label:"Редакционные материалы",weight:30},
