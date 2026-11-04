@@ -191,6 +191,9 @@
     @keyframes page-slide-in{from{transform:translateX(-105%) rotateY(5deg);transform-origin:left center}to{transform:translateX(0) rotateY(0)}}
     @keyframes page-slide-out{from{transform:translateX(0)}to{transform:translateX(-105%)}}
     @media print{.mobile-menu{display:none!important}}
+    .hero-title{font-size:clamp(46px,11vw,152px);text-indent:0}
+    .hero-row{display:flex;justify-content:flex-end}
+    @media(max-width:600px){.hero-title{font-size:clamp(44px,15vw,90px)}.hero-meta{width:100%}}
     @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;transition:none!important;animation:none!important}}
     @media print{.topbar,.sidebar,.tools,.download,.concept-controls,.checklist,.progress-outer,.footer{display:none!important}.shell{display:block;max-width:none;padding:0}.section{break-inside:avoid;padding:24px 0}.hero{padding:20px 0}.page-info{position:static}.spectrum{height:140px;-webkit-print-color-adjust:exact;print-color-adjust:exact}body{font-size:12px}}
   </style>
@@ -230,9 +233,8 @@
           <div class="eyebrow"><span class="roundel"></span>Редакционная система / внутренний документ</div>
           <div class="hero-stamp">САНКТ-ПЕТЕРБУРГ<br>НОЯ 2026 → МАЙ 2027</div>
         </div>
-        <h1 class="hero-title">ERA.</h1>
+        <h1 class="hero-title">ЭРА№01</h1>
         <div class="hero-row">
-          <p class="hero-sub">Первый выпуск.<br>От идеи — до физического объекта.</p>
           <div class="hero-meta"><span><b>Выпуск</b> 01 / Печатный + Digital</span><span><b>Защита</b> c 20.05.2027</span></div>
         </div>
         <div class="spectrum" aria-label="Абстрактная визуализация звукового сигнала как элемент айдентики">
