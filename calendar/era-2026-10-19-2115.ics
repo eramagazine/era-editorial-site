@@ -1,0 +1,15 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//ERA Magazine//Editorial Calendar//RU
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:era-2026-10-19-2115@eramagazine.github.io
+DTSTAMP:20261106T000000Z
+SUMMARY:Созвон 1 — организационный
+DTSTART:20261019T181500Z
+DESCRIPTION:Созвон 1 — организационный команд
+ ы.
+URL:https://eramagazine.github.io/era-editorial-site/#schedule
+END:VEVENT
+END:VCALENDAR

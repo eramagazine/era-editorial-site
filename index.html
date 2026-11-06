@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#eeeae2">
   <meta name="description" content="ERA — редакционный и производственный план первого выпуска: сроки, команда, редакционный цикл, рубрики, flatplan и контроль готовности.">
   <title>ERA — Редакционная система / выпуск 01</title>
-  <link rel="stylesheet" href="assets/site.73eb0816a7ae.css">
+  <link rel="stylesheet" href="assets/site.3ed9ebe90d2b.css">
 </head>
 <body>
   <a class="skip" href="#main">К содержанию</a>
@@ -157,6 +157,17 @@
         article.append(textNode("span","meta-line",event.date),textNode("p","",event.detail));
         if(event.owners)article.append(textNode("h4","","Ответственные"),textNode("p","",event.owners));
         if(event.output)article.append(textNode("h4","","Результат"),textNode("p","",event.output));
+        if(event.important){
+          const actions=document.createElement("div");actions.className="calendar-add-actions";
+          const add=textNode("a","calendar-add-button","Добавить в календарь");
+          add.href="calendar/era-"+event.start+(event.time?"-"+event.time.replace(":",""):"")+".ics";add.type="text/calendar";
+          const google=textNode("a","calendar-google-link","Открыть в Google Календаре");
+          const day=event.start.replaceAll("-","");
+          const start=event.time?day+"T"+event.time.replace(":","")+"00":day;
+          const end=event.time?start:calendarISO(new Date(Date.parse((event.end||event.start)+"T00:00:00Z")+86400000)).replaceAll("-","");
+          google.href="https://calendar.google.com/calendar/render?"+new URLSearchParams({action:"TEMPLATE",text:event.title,dates:start+"/"+end,ctz:"Europe/Moscow",details:event.detail+(event.owners?"\nОтветственные: "+event.owners:"")});google.target="_blank";google.rel="noopener";
+          actions.append(add,google);article.append(actions);
+        }
         calendarDetails.append(article);
       });
       calendarDialog.showModal();

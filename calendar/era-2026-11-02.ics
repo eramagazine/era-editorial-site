@@ -1,0 +1,16 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//ERA Magazine//Editorial Calendar//RU
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:era-2026-11-02@eramagazine.github.io
+DTSTAMP:20261106T000000Z
+SUMMARY:Созвон дизайнеров
+DTSTART;VALUE=DATE:20261102
+DTEND;VALUE=DATE:20261103
+DESCRIPTION:Созвон команды дизайнеров.\nОтвет
+ ственные: Дизайнеры
+URL:https://eramagazine.github.io/era-editorial-site/#schedule
+END:VEVENT
+END:VCALENDAR

@@ -1,0 +1,15 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//ERA Magazine//Editorial Calendar//RU
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:era-2026-10-13@eramagazine.github.io
+DTSTAMP:20261106T000000Z
+SUMMARY:Создание беседы команды
+DTSTART;VALUE=DATE:20261013
+DTEND;VALUE=DATE:20261014
+DESCRIPTION:Создана общая беседа команды.
+URL:https://eramagazine.github.io/era-editorial-site/#schedule
+END:VEVENT
+END:VCALENDAR

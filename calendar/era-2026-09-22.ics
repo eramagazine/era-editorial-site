@@ -1,0 +1,16 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//ERA Magazine//Editorial Calendar//RU
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:era-2026-09-22@eramagazine.github.io
+DTSTAMP:20261106T000000Z
+SUMMARY:Старт поиска команды
+DTSTART;VALUE=DATE:20260922
+DTEND;VALUE=DATE:20260923
+DESCRIPTION:Запущен поиск участников команды 
+ ERA.
+URL:https://eramagazine.github.io/era-editorial-site/#schedule
+END:VEVENT
+END:VCALENDAR

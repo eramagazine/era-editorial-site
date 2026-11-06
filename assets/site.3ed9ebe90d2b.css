@@ -415,7 +415,11 @@
     .calendar-sheet .calendar-event:not(.calendar-milestone){background:#252525;background-image:none;color:#dedddb;border:1px solid #454545;border-radius:4px;filter:none}
     .calendar-day.has-events:not(.important-day):after{background:#8d8d8d}
     .calendar-day[aria-current=date]:not(.important-day){color:var(--calendar-text)}
-    .calendar-sheet .calendar-event:not(.calendar-milestone):hover{background:var(--event-bg);color:var(--event-ink);border-color:var(--event-bg)}
-    .calendar-day:not(.calendar-empty):hover{background:rgba(85,198,228,.15);border-radius:6px}
+    .calendar-sheet .calendar-event:not(.calendar-milestone):is(:hover,:focus-visible){background:var(--paper);color:#0e0e0e;border-color:var(--paper)}
+    .calendar-day:not(.calendar-empty):not(.important-day):hover{background:var(--paper);color:#0e0e0e;border-radius:6px}
     .calendar-agenda-event{border-radius:10px}
     @media(max-width:600px){.calendar-sheet{border-radius:14px}.team-category .team-person h4{font-size:21px}}
+
+    .calendar-add-actions{display:flex;align-items:center;flex-wrap:wrap;gap:14px;margin-top:24px}
+    .calendar-add-button{display:inline-flex;align-items:center;justify-content:center;border:1px solid #0e0e0e;border-radius:100px;background:#0e0e0e;color:var(--paper);font:11px/1.5 var(--mono);padding:12px 20px;text-decoration:none;min-height:44px}
+    .calendar-add-button:hover{background:#333}.calendar-google-link{font:11px/1.5 var(--mono);color:var(--muted);text-underline-offset:4px}

@@ -1,0 +1,18 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//ERA Magazine//Editorial Calendar//RU
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:era-2026-11-12@eramagazine.github.io
+DTSTAMP:20261106T000000Z
+SUMMARY:Ресёрч журналистов и финансировани
+ е
+DTSTART;VALUE=DATE:20261112
+DTEND;VALUE=DATE:20261113
+DESCRIPTION:Обсуждение ресёрча журналистов и 
+ вопросов по финансированию от Ксюши.\nОт
+ ветственные: Журналисты · Ксюша
+URL:https://eramagazine.github.io/era-editorial-site/#schedule
+END:VEVENT
+END:VCALENDAR

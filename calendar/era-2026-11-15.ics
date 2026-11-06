@@ -1,0 +1,17 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//ERA Magazine//Editorial Calendar//RU
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:era-2026-11-15@eramagazine.github.io
+DTSTAMP:20261106T000000Z
+SUMMARY:Встреча в Санкт-Петербурге
+DTSTART;VALUE=DATE:20261115
+DTEND;VALUE=DATE:20261116
+DESCRIPTION:Встреча команды в Санкт-Петербург
+ е.\nОтветственные: Слава · Настя · Ксюша 
+ · Маша Жул
+URL:https://eramagazine.github.io/era-editorial-site/#schedule
+END:VEVENT
+END:VCALENDAR
