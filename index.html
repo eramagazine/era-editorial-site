@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#eeeae2">
   <meta name="description" content="ERA — редакционный и производственный план первого выпуска: сроки, команда, редакционный цикл, рубрики, flatplan и контроль готовности.">
   <title>ERA — Редакционная система / выпуск 01</title>
-  <link rel="stylesheet" href="assets/site.a7346f26408a.css">
+  <link rel="stylesheet" href="assets/site.73eb0816a7ae.css">
 </head>
 <body>
   <a class="skip" href="#main">К содержанию</a>
@@ -46,18 +46,18 @@
 
 
       <section class="section" id="team">
-        <div class="section-head section-head-plain"><div><h2 class="team-heading">Команда<button class="team-heading-toggle" type="button" aria-label="Показать всю команду" aria-controls="team-list" aria-expanded="false"><span aria-hidden="true">⌄</span></button></h2><p class="team-instruction">8 направлений · Нажми на карточку, чтобы познакомиться с участниками.</p></div></div>
+        <div class="section-head section-head-plain"><div><h2 class="team-heading">Команда<button class="team-heading-toggle" type="button" aria-label="Показать всю команду" aria-controls="team-list" aria-expanded="false"><span aria-hidden="true">⌄</span></button></h2><p class="team-instruction">Нажми на карточку, чтобы познакомиться с участниками.</p></div></div>
         <div class="team-grid" id="team-list"></div>
         <button class="team-expand-toggle" type="button" aria-controls="team-list" aria-expanded="false">Смотреть всех</button>
       </section>
 
       <section class="section" id="schedule">
-        <div class="section-head section-head-plain"><div><h2>Производственный календарь</h2><p class="section-desc">Сентябрь 2026 — май 2027. Листай месяцы и нажимай на день или цветную полосу периода, чтобы открыть задачи. Даты плановые и могут уточняться.</p></div></div>
+        <div class="section-head section-head-plain"><div><h2>Производственный календарь</h2><p class="section-desc">Листай месяцы и нажимай на день или полосу периода, чтобы открыть задачи.</p></div></div>
         <div class="calendar-sheet">
           <div class="calendar-toolbar"><div><h3 id="calendar-title" aria-live="polite"></h3></div><div class="calendar-pager"><button id="calendar-prev" type="button" aria-label="Предыдущий месяц">←</button><label class="sr-only" for="calendar-month">Месяц календаря</label><select id="calendar-month"><option value="0">Сентябрь 2026</option><option value="1">Октябрь 2026</option><option value="2">Ноябрь 2026</option><option value="3">Декабрь 2026</option><option value="4">Январь 2027</option><option value="5">Февраль 2027</option><option value="6">Март 2027</option><option value="7">Апрель 2027</option><option value="8">Май 2027</option></select><button id="calendar-next" type="button" aria-label="Следующий месяц">→</button></div></div>
           <div class="calendar-weekdays" aria-hidden="true"><span>Пн</span><span>Вт</span><span>Ср</span><span>Чт</span><span>Пт</span><span>Сб</span><span>Вс</span></div>
           <div id="calendar-grid" aria-label="Дни и периоды выбранного месяца"></div>
-          <p class="calendar-hint">Цветная полоса — период работы. ★ — важная дата или созвон. Нажми на день, полосу или событие ниже.</p><div id="calendar-important" aria-label="Важные даты месяца"></div>
+          <p class="calendar-hint">Полоса — период работы. ★ — важная дата или созвон. Нажми на день, полосу или событие ниже.</p><div id="calendar-important" aria-label="Важные даты месяца"></div>
         </div>
         <div class="calendar-footer"><button class="download" id="schedule-export" type="button">↧ CSV календарь</button></div>
         <dialog id="calendar-dialog" aria-labelledby="calendar-dialog-title"><div class="calendar-dialog-heading"><h2 id="calendar-dialog-title"></h2><button id="calendar-close" type="button" aria-label="Закрыть информацию о задаче">×</button></div><div id="calendar-details"></div></dialog>
@@ -105,15 +105,17 @@
       {month:"Май",date:"с 20 мая",title:"Защита ERA",detail:"Презентация печатного и цифрового независимого медиа.",owners:"Маша Жул · команда",output:"Выпуск № 01 представлен"}
     ];
     schedule.push(
+      {date:"9 ноя 2026 · 21:00 МСК",title:"Созвон 4",detail:"Созвон команды ERA.",owners:"Команда",output:"",start:"2026-11-09",end:"2026-11-09",time:"21:00",important:true},
+      {date:"13 ноя 2026 · 21:00 МСК",title:"Созвон 5",detail:"Созвон команды ERA.",owners:"Команда",output:"",start:"2026-11-13",end:"2026-11-13",time:"21:00",important:true},
       {date:"1–20 сен 2026",title:"Подготовка запуска соцсетей",detail:"Сентябрь до 20 числа — подготовка и создание социальных сетей ERA.",owners:"",output:"",start:"2026-09-01",end:"2026-09-20"},
       {date:"20 сен 2026",title:"Запуск соцсетей",detail:"Социальные сети ERA созданы 20 сентября.",owners:"",output:"",start:"2026-09-20",end:"2026-09-20",important:true},
       {date:"22 сен 2026",title:"Старт поиска команды",detail:"Запущен поиск участников команды ERA.",owners:"",output:"",start:"2026-09-22",end:"2026-09-22",important:true},
       {date:"1–11 окт 2026",title:"Формирование команды",detail:"Формирование команды и отбор участников до 11 октября.",owners:"",output:"",start:"2026-10-01",end:"2026-10-11"},
       {date:"13 окт 2026",title:"Создание беседы команды",detail:"Создана общая беседа команды.",owners:"",output:"",start:"2026-10-13",end:"2026-10-13",important:true},
-      {date:"19 окт 2026 · 21:15 МСК",title:"Первый организационный созвон",detail:"Первый организационный созвон команды.",owners:"",output:"",start:"2026-10-19",end:"2026-10-19",time:"21:15",important:true},
-      {date:"26 окт 2026 · 21:00 МСК",title:"Второй созвон",detail:"Обсуждение доски Figma и идеи проекта.",owners:"",output:"",start:"2026-10-26",end:"2026-10-26",time:"21:00",important:true},
+      {date:"19 окт 2026 · 21:15 МСК",title:"Созвон 1 — организационный",detail:"Созвон 1 — организационный команды.",owners:"",output:"",start:"2026-10-19",end:"2026-10-19",time:"21:15",important:true},
+      {date:"26 окт 2026 · 21:00 МСК",title:"Созвон 2",detail:"Обсуждение доски Figma и идеи проекта.",owners:"",output:"",start:"2026-10-26",end:"2026-10-26",time:"21:00",important:true},
       {date:"2 ноя 2026",title:"Созвон дизайнеров",detail:"Созвон команды дизайнеров.",owners:"Дизайнеры",output:"",start:"2026-11-02",end:"2026-11-02",important:true},
-      {date:"3 ноя 2026",title:"Третий созвон — отбор героев",detail:"Третий созвон команды: отбор героев выпуска.",owners:"",output:"",start:"2026-11-03",end:"2026-11-03",important:true},
+      {date:"3 ноя 2026",title:"Созвон 3 — отбор героев",detail:"Созвон 3 команды: отбор героев выпуска.",owners:"",output:"",start:"2026-11-03",end:"2026-11-03",important:true},
       {date:"5 ноя 2026",title:"Финальное решение по героям",detail:"Финальное решение по героям выпуска от всех участников.",owners:"Вся команда",output:"",start:"2026-11-05",end:"2026-11-05",important:true},
       {date:"12 ноя 2026",title:"Ресёрч журналистов и финансирование",detail:"Обсуждение ресёрча журналистов и вопросов по финансированию от Ксюши.",owners:"Журналисты · Ксюша",output:"",start:"2026-11-12",end:"2026-11-12",important:true},
       {date:"15 ноя 2026",title:"Встреча в Санкт-Петербурге",detail:"Встреча команды в Санкт-Петербурге.",owners:"Слава · Настя · Ксюша · Маша Жул",output:"",start:"2026-11-15",end:"2026-11-15",important:true}

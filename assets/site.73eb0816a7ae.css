@@ -408,3 +408,14 @@
     .team-person+.team-person{border-top:0;margin-top:6px}
     @media(hover:hover){.team-category summary:hover .team-caption{background:rgba(0,0,0,.025)}}
     @media(max-width:600px){.team-caption{padding:16px}.team-category .team-members{padding:0 16px}}
+
+    .team-caption{border-color:#a3a3a3}
+    .team-category .team-person h4{font-size:clamp(17px,1.5vw,23px);line-height:1.25}
+    .calendar-sheet{border-radius:18px;overflow:hidden}
+    .calendar-sheet .calendar-event:not(.calendar-milestone){background:#252525;background-image:none;color:#dedddb;border:1px solid #454545;border-radius:4px;filter:none}
+    .calendar-day.has-events:not(.important-day):after{background:#8d8d8d}
+    .calendar-day[aria-current=date]:not(.important-day){color:var(--calendar-text)}
+    .calendar-sheet .calendar-event:not(.calendar-milestone):hover{background:var(--event-bg);color:var(--event-ink);border-color:var(--event-bg)}
+    .calendar-day:not(.calendar-empty):hover{background:rgba(85,198,228,.15);border-radius:6px}
+    .calendar-agenda-event{border-radius:10px}
+    @media(max-width:600px){.calendar-sheet{border-radius:14px}.team-category .team-person h4{font-size:21px}}
