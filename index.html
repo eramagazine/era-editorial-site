@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#eeeae2">
   <meta name="description" content="ERA — редакционный и производственный план первого выпуска: сроки, команда, редакционный цикл, рубрики, flatplan и контроль готовности.">
   <title>ERA — Редакционная система / выпуск 01</title>
-  <link rel="stylesheet" href="assets/site.5230d0c32876.css">
+  <link rel="stylesheet" href="assets/site.e648f9517acd.css">
 </head>
 <body>
   <a class="skip" href="#main">К содержанию</a>
@@ -46,8 +46,9 @@
 
 
       <section class="section" id="team">
-        <div class="section-head section-head-plain"><div><h2>Команда</h2><p class="team-instruction">8 направлений · Нажми на карточку, чтобы познакомиться с участниками.</p></div></div>
+        <div class="section-head section-head-plain"><div><h2 class="team-heading">Команда<button class="team-heading-toggle" type="button" aria-label="Показать всю команду" aria-controls="team-list" aria-expanded="false"><span aria-hidden="true">⌄</span></button></h2><p class="team-instruction">8 направлений · Нажми на карточку, чтобы познакомиться с участниками.</p></div></div>
         <div class="team-grid" id="team-list"></div>
+        <button class="team-expand-toggle" type="button" aria-controls="team-list" aria-expanded="false">Смотреть всех</button>
       </section>
 
       <section class="section" id="schedule">
@@ -70,7 +71,7 @@
 
       <section class="section task-section" id="tasks">
         <div class="section-head section-head-plain"><div><h2>Задачи команды</h2><p class="section-desc">Задачи и описания обновляет Маша Жул. Участники команды отмечают выполнение.</p></div></div>
-        <div class="task-toolbar"><label class="task-search">Поиск<input id="task-search" type="search" placeholder="Задача, участник или описание"></label><label>Статус<select id="task-status-filter"><option value="">Все статусы</option><option value="in_progress">В процессе</option><option value="done">Завершено</option><option value="unset">Не отмечено</option></select></label><label>Кто выполняет<select id="task-owner-filter"><option value="">Все участники</option></select></label></div>
+        <div class="task-toolbar"><label class="task-search">Поиск<input id="task-search" type="search" placeholder="Задача, участник или описание"></label><label>Статус<select id="task-status-filter"><option value="">Все статусы</option><option value="in_progress">В процессе</option><option value="done">Выполнено</option><option value="unset">Не отмечено</option></select></label><label>Кто выполняет<select id="task-owner-filter"><option value="">Все участники</option></select></label></div>
         <div class="task-summary-line"><span id="task-summary"></span><span id="task-sync-status" role="status"></span><button id="task-sync-retry" class="task-retry" type="button" hidden>Повторить подключение</button></div>
         <div class="task-table-wrap"><table class="task-table"><caption class="sr-only">Задачи команды ERA с датами, ответственными и отметками выполнения</caption><thead><tr><th scope="col">Дата</th><th scope="col">Дедлайн</th><th scope="col">Задача</th><th scope="col">Кто выполняет</th><th scope="col">Описание задачи</th><th scope="col">Статус</th></tr></thead><tbody id="task-rows"></tbody></table></div>
         <p id="task-announcement" class="sr-only" role="status"></p>
@@ -240,6 +241,17 @@
     function makeWave(){const svg=document.getElementById("wave-svg");const ns="http://www.w3.org/2000/svg";for(let i=0;i<96;i++){const rect=document.createElementNS(ns,"rect");const x=i*10+1;const envelope=Math.abs(Math.sin(i*.175)*Math.cos(i*.071+1.2));const burst=Math.abs(Math.sin(i*.75)*Math.cos(i*.27));const h=12+244*Math.pow(.37*envelope+.63*burst,.97);rect.setAttribute("x",x);rect.setAttribute("y",(310-h)/2);rect.setAttribute("width",i%7===0?5:2.1);rect.setAttribute("height",h);rect.setAttribute("fill",i%11===0?"#f25332":"#e3e2dc");rect.setAttribute("opacity",String(.46+(i%7)*.065));svg.append(rect)}const line=document.createElementNS(ns,"path");let path="";for(let i=0;i<96;i++){let y=155+Math.sin(i*.27)*Math.sin(i*.045+2.1)*66+Math.cos(i*.91)*15;path+=(i===0?"M":"L")+(i*10+2)+" "+y+" "}line.setAttribute("d",path);line.setAttribute("fill","none");line.setAttribute("stroke","#f25332");line.setAttribute("stroke-width","1.7");line.setAttribute("opacity",".95");svg.append(line)}
     document.getElementById("schedule-export").addEventListener("click",()=>{const esc=s=>'"'+String(s).replaceAll('"','""')+'"';const csv=["Период,Задача,Описание,Ответственные,Результат",...calendarEvents.map(x=>[x.date,x.title,x.detail,x.owners,x.output].map(esc).join(","))].join("\r\n");download("ERA-production-calendar.csv","\uFEFF"+csv,"text/csv;charset=utf-8")});
     renderSchedule();renderTeam();makeWave();
+    const teamExpandToggle=document.querySelector(".team-expand-toggle");
+    const teamHeadingToggle=document.querySelector(".team-heading-toggle");
+    function toggleTeam(){
+      const expanded=document.getElementById("team-list").classList.toggle("team-expanded");
+      [teamExpandToggle,teamHeadingToggle].forEach(button=>button.setAttribute("aria-expanded",String(expanded)));
+      teamHeadingToggle.setAttribute("aria-label",expanded?"Свернуть команду":"Показать всю команду");
+      teamExpandToggle.textContent=expanded?"Свернуть":"Смотреть всех";
+      if(!expanded){document.querySelectorAll(".team-category[open]").forEach(card=>card.open=false);document.getElementById("team").scrollIntoView({block:"start"})}
+    }
+    teamExpandToggle.addEventListener("click",toggleTeam);
+    teamHeadingToggle.addEventListener("click",toggleTeam);
     const printArtwork=document.querySelector(".spectrum");
     function startPrint(){
       printArtwork.classList.remove("is-printing");
@@ -255,9 +267,9 @@
     }else{startPrint()}
 
   </script>
-  <script src="assets/tasks-data.js?v=b9793a7f473e"></script>
+  <script src="assets/tasks-data.js?v=3a967a9be97a"></script>
   <script src="assets/tasks-config.js?v=6a74209e40ee"></script>
-  <script src="assets/tasks.js?v=708c3692063f"></script>
+  <script src="assets/tasks.js?v=e5131247720b"></script>
   <script src="assets/navigation.js?v=da44e0f0b3c9"></script>
 </body>
 </html>
