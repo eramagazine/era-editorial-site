@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#eeeae2">
   <meta name="description" content="ERA — редакционный и производственный план первого выпуска: сроки, команда, редакционный цикл, рубрики, flatplan и контроль готовности.">
   <title>ERA — Редакционная система / выпуск 01</title>
-  <link rel="stylesheet" href="assets/site.4f6a8870f532.css">
+  <link rel="stylesheet" href="assets/site.a7346f26408a.css">
 </head>
 <body>
   <a class="skip" href="#main">К содержанию</a>
@@ -223,12 +223,14 @@
         image.style.top=(-top/cardWidth*100)+"%";
         artwork.append(image);
         const heading=document.createElement("div");heading.className="team-category-heading";
-        heading.append(textNode("span","team-category-number",String(index+1).padStart(2,"0")),textNode("h3","",group.category),textNode("span","team-category-plus","+"));heading.lastChild.setAttribute("aria-hidden","true");
-        summary.append(artwork,heading,textNode("p","team-names",group.members.length?group.members.map(member=>member.name).join(" · "):"В процессе отбора"));
+        heading.append(textNode("h3","",group.category),textNode("span","team-category-plus","+"));heading.lastChild.setAttribute("aria-hidden","true");
+        const caption=document.createElement("div");caption.className="team-caption";
+        caption.append(heading,textNode("p","team-names",group.members.length?group.members.map(member=>member.name).join(" · "):"В процессе отбора"));
+        summary.append(artwork,caption);
         const content=document.createElement("div");content.className="team-members";
         group.members.forEach(member=>{
           const person=document.createElement("article");person.className="team-person";
-          person.append(textNode("h4","",member.name),textNode("span","team-person-role",member.role),textNode("p","",member.about));content.append(person);
+          person.append(textNode("h4","",member.name),textNode("p","",member.about));content.append(person);
         });
         if(!group.members.length)content.append(textNode("p","team-vacancy",group.about));
         card.append(summary,content);list.append(card);

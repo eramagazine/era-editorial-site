@@ -386,3 +386,25 @@
     @media(max-width:1120px){.rubric-cluster[data-kind=main] .rubric-cluster-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.rubric-cluster-grid{gap:24px}}
     @media(max-width:760px){.rubric-cluster[data-kind=themes] .rubric-cluster-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.rubric-entry-title{font-size:22px}}
     @media(max-width:600px){.rubric-cluster{margin-top:44px}.rubric-cluster[data-kind] .rubric-cluster-grid{grid-template-columns:minmax(0,1fr);gap:34px}.rubric-media{margin-bottom:18px}.rubric-cluster-title{font-size:26px}.rubric-cluster-desc{font-size:14px}.rubric-entry-copy{font-size:14px}.rubric-cluster[data-kind=journalism] .rubric-entry-title{font-size:34px}.rubric-cluster[data-kind=journalism] .rubric-entry-copy{font-size:15px}}
+
+    /* Compact secondary rubric groups; keep the main rubric cards unchanged. */
+    .rubric-cluster[data-kind=themes] .rubric-cluster-grid{grid-template-columns:repeat(4,minmax(0,1fr))}
+    .rubric-cluster[data-kind=special] .rubric-entry,.rubric-cluster[data-kind=journalism] .rubric-entry{display:grid;grid-template-columns:minmax(100px,32%) minmax(0,1fr);column-gap:22px;align-content:start}
+    .rubric-cluster[data-kind=special] .rubric-media,.rubric-cluster[data-kind=journalism] .rubric-media{grid-column:1;grid-row:1 / span 3;margin:0}
+    .rubric-cluster[data-kind=special] .rubric-entry> :not(.rubric-media),.rubric-cluster[data-kind=journalism] .rubric-entry> :not(.rubric-media){grid-column:2}
+    .rubric-cluster[data-kind=journalism] .rubric-entry-title{font-size:28px}
+    .rubric-cluster[data-kind=journalism] .rubric-entry-copy{font-size:14px;line-height:1.75}
+    @media(max-width:1120px){.rubric-cluster[data-kind=themes] .rubric-cluster-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.rubric-cluster[data-kind=special] .rubric-cluster-grid,.rubric-cluster[data-kind=journalism] .rubric-cluster-grid{grid-template-columns:minmax(0,1fr)}.rubric-cluster[data-kind=special] .rubric-entry,.rubric-cluster[data-kind=journalism] .rubric-entry{grid-template-columns:150px minmax(0,1fr)}}
+    @media(max-width:600px){.rubric-cluster[data-kind=themes] .rubric-cluster-grid{grid-template-columns:minmax(0,1fr)}.rubric-cluster[data-kind=themes] .rubric-entry,.rubric-cluster[data-kind=special] .rubric-entry,.rubric-cluster[data-kind=journalism] .rubric-entry{display:grid;grid-template-columns:96px minmax(0,1fr);column-gap:16px;align-content:start}.rubric-cluster[data-kind=themes] .rubric-media{grid-column:1;grid-row:1 / span 3;margin:0}.rubric-cluster[data-kind=themes] .rubric-entry> :not(.rubric-media){grid-column:2}.rubric-cluster[data-kind=journalism] .rubric-entry-title{font-size:24px}}
+
+    /* Team controls follow the outline buttons in the header. */
+    .team-category{border-bottom:0;padding-bottom:0}
+    .team-caption{border:1px solid var(--ink);border-radius:16px;padding:18px 20px;margin-top:18px;transition:background-color .2s}
+    .team-category-heading{grid-template-columns:minmax(0,1fr) 18px;margin-top:0}
+    .team-category .team-names{padding-left:0;margin-top:10px}
+    .team-category[open] .team-names{display:none}
+    .team-category .team-members{padding:0 20px}
+    .team-category .team-person h4{font-size:clamp(25px,2vw,32px);line-height:1.2}
+    .team-person+.team-person{border-top:0;margin-top:6px}
+    @media(hover:hover){.team-category summary:hover .team-caption{background:rgba(0,0,0,.025)}}
+    @media(max-width:600px){.team-caption{padding:16px}.team-category .team-members{padding:0 16px}}
