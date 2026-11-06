@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#eeeae2">
   <meta name="description" content="ERA — редакционный и производственный план первого выпуска: сроки, команда, редакционный цикл, рубрики, flatplan и контроль готовности.">
   <title>ERA — Редакционная система / выпуск 01</title>
-  <link rel="stylesheet" href="assets/site.a06b8c118c0b.css">
+  <link rel="stylesheet" href="assets/site.1b4f5f52322e.css">
 </head>
 <body>
   <a class="skip" href="#main">К содержанию</a>
@@ -203,9 +203,19 @@
           }else{cell.classList.add("calendar-empty");cell.setAttribute("aria-hidden","true")}
           row.append(cell);
         }
-        calendarEvents.forEach(event=>{
+        const periodLanes=[],milestoneLanes=[];
+        const visibleEvents=calendarEvents.map(event=>({event,covered:weekDates.filter(({iso})=>iso>=event.start&&(!event.end||iso<=event.end))})).filter(item=>item.covered.length);
+        visibleEvents.filter(item=>!item.event.important).forEach(item=>{
+          const columns=item.covered.map(day=>day.col);let lane=periodLanes.findIndex(used=>columns.every(col=>!used.has(col)));
+          if(lane<0){lane=periodLanes.length;periodLanes.push(new Set())}columns.forEach(col=>periodLanes[lane].add(col));item.lane=lane+2;
+        });
+        visibleEvents.filter(item=>item.event.important).forEach(item=>{
+          const columns=item.covered.map(day=>day.col);let lane=milestoneLanes.findIndex(used=>columns.every(col=>!used.has(col)));
+          if(lane<0){lane=milestoneLanes.length;milestoneLanes.push(new Set())}columns.forEach(col=>milestoneLanes[lane].add(col));item.lane=periodLanes.length+lane+2;
+        });
+        visibleEvents.forEach(({event,lane})=>{
           const covered=weekDates.filter(({iso})=>iso>=event.start&&(!event.end||iso<=event.end));if(!covered.length)return;
-          const bar=textNode("button","calendar-event"+(event.important?" calendar-milestone":""),(event.important?"★ ":"")+event.title);bar.type="button";bar.dataset.color=event.color;bar.style.gridColumn=`${covered[0].col+1} / ${covered[covered.length-1].col+2}`;
+          const bar=textNode("button","calendar-event"+(event.important?" calendar-milestone":""),(event.important?"★ ":"")+event.title);bar.type="button";bar.dataset.color=event.color;bar.style.gridRow=String(lane);bar.style.gridColumn=`${covered[0].col+1} / ${covered[covered.length-1].col+2}`;
           bar.setAttribute("aria-label",`${event.date}: ${event.title}`);bar.title=event.date+" · "+event.title;bar.onclick=()=>showCalendarDetails(event.title,[event]);row.append(bar);
         });
         grid.append(row);
@@ -270,7 +280,7 @@
     }else{startPrint()}
 
   </script>
-  <script src="assets/team-carousel.js?v=75f1d9b8ae59"></script>
+  <script src="assets/team-carousel.js?v=80ea0fac6cac"></script>
   <script src="assets/tasks-data.js?v=3a967a9be97a"></script>
   <script src="assets/tasks-config.js?v=6a74209e40ee"></script>
   <script src="assets/tasks.js?v=e5131247720b"></script>

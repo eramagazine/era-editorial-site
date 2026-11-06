@@ -442,3 +442,23 @@
     #team-list>.team-category.is-active:after{opacity:0}
     #team-list .team-category summary:hover .team-category-heading h3{color:var(--ink)}
     @media(prefers-reduced-motion:reduce){#team-list>.team-category:after{transition:none}}
+
+    /* Clear calendar hierarchy: date, production period, then key event. */
+    .calendar-sheet,#calendar-dialog{font-family:var(--font)}
+    .calendar-day,.calendar-toolbar h3{font-family:var(--fira-sans)}
+    .calendar-sheet .calendar-day.important-day{background:transparent;color:var(--calendar-text)}
+    .calendar-sheet .calendar-day.has-events:after{display:none}
+    .calendar-sheet .calendar-event{font-family:var(--font);font-size:12px;font-weight:500;line-height:1.35;align-self:stretch}
+    .calendar-sheet .calendar-milestone{background-image:none;font-weight:600;border-radius:4px}
+    .calendar-pager button,.calendar-pager select,.calendar-weekdays,.calendar-hint,.calendar-agenda-event,.calendar-agenda-date,.calendar-important-heading{font-family:var(--font)}
+    .calendar-dialog-heading{align-items:flex-start;padding-bottom:14px;gap:16px}
+    #calendar-dialog .calendar-dialog-heading h2,.calendar-detail h3{font-family:var(--fira-sans);font-weight:700;line-height:1.25;margin:0;font-size:24px}
+    #calendar-dialog .calendar-dialog-heading button{display:grid;place-items:center;flex:0 0 30px;width:30px;height:30px;min-height:0;padding:0;margin:0;border:0;border-radius:50%;background:#0e0e0e;color:var(--paper);font:22px/1 var(--font);appearance:none;box-shadow:none}
+    #calendar-dialog .calendar-dialog-heading button:hover{background:#333}
+    .calendar-detail{border-top:0;padding-top:0;margin-top:20px}
+    #calendar-dialog .meta-line,#calendar-dialog .calendar-detail h4,#calendar-dialog .calendar-add-button,#calendar-dialog .calendar-google-link{font-family:var(--font)}
+    #calendar-dialog .calendar-detail h3{font-size:20px;margin-bottom:10px}
+    @media(max-width:600px){.calendar-sheet .calendar-event{font-size:11px}#calendar-dialog .calendar-dialog-heading h2{font-size:21px}}
+
+    #team-list.is-wheeling>.team-category{transition:transform .12s ease-out,opacity .2s}
+    @media(prefers-reduced-motion:reduce){#team-list.is-wheeling>.team-category{transition:none}}
