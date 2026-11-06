@@ -372,3 +372,5 @@
     @media(max-width:850px){.workflow-tabs{grid-template-columns:repeat(2,minmax(0,1fr))}.workflow-tab{min-height:150px}.workflow-tab-title{font-size:18px}}
     @media(max-width:600px){.workflow-tab{padding:16px;min-height:155px}.workflow-tab-title{font-size:16px}.workflow-panel{padding:22px 16px}.workflow-phase-heading{grid-template-columns:64px minmax(0,1fr);gap:14px}.workflow-phase-number{font-size:32px}.workflow-phase-heading h3{font-size:22px}.workflow-step-details summary{grid-template-columns:24px minmax(0,1fr) 20px;gap:10px;padding:18px 0}.workflow-step-title{font-size:17px}.workflow-step-copy{margin:0 0 22px 34px;font-size:14px;line-height:1.75}.workflow-output{flex-direction:column;gap:10px;padding:16px}.workflow-output p{font-size:16px}.workflow-pager{gap:8px;flex-wrap:wrap}.workflow-pager button{font-size:9px;padding:10px 12px}.workflow-pager>span{order:3;width:100%;text-align:center;margin-top:6px}}
     @media print{.workflow-tabs,.workflow-pager{display:none}.workflow-panel[hidden],.workflow-step-copy{display:block!important}.workflow-panel{margin-bottom:24px;break-inside:avoid}}
+
+    .hero,.section{border-bottom:0}

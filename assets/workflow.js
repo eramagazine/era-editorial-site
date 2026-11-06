@@ -33,13 +33,11 @@
     const tab=make('button','workflow-tab');tab.type='button';tab.id=`workflow-tab-${index}`;tab.dataset.phase=index;tab.setAttribute('role','tab');tab.setAttribute('aria-controls',`workflow-panel-${index}`);tab.setAttribute('aria-selected',String(index===0));tab.tabIndex=index===0?0:-1;
     tab.append(make('span','workflow-tab-number',phase.number),make('span','workflow-tab-title',phase.title),make('span','workflow-tab-count',`${phase.steps.length} ${phase.steps.length===5?"пунктов":"пункта"}`));tabs.append(tab);
     const panel=make('div','workflow-panel');panel.id=`workflow-panel-${index}`;panel.dataset.phase=index;panel.setAttribute('role','tabpanel');panel.setAttribute('aria-labelledby',tab.id);panel.hidden=index!==0;
-    const heading=make('div','workflow-phase-heading');heading.append(make('span','workflow-phase-number',phase.number),make('h3','',phase.title));panel.append(heading);
     const list=make('ol','workflow-steps');list.start=offset+1;
     phase.steps.forEach(([title,description],stepIndex)=>{
       const item=make('li','workflow-step');const details=make('details','workflow-step-details');details.open=stepIndex===0;
       const summary=make('summary','');const number=make('span','workflow-step-number',String(offset+stepIndex+1).padStart(2,'0'));number.setAttribute('aria-hidden','true');const plus=make('span','workflow-step-toggle','+');plus.setAttribute('aria-hidden','true');summary.append(number,make('span','workflow-step-title',title),plus);details.append(summary,make('p','workflow-step-copy',description));item.append(details);list.append(item);
     });offset+=phase.steps.length;panel.append(list);
-    const output=make('div','workflow-output');output.append(make('span','workflow-output-label','На выходе'),make('p','',phase.result));panel.append(output);
     const pager=make('div','workflow-pager');const previous=make('button','','← Предыдущий этап');previous.type='button';previous.disabled=index===0;previous.onclick=()=>select(index-1,true);const next=make('button','','Следующий этап →');next.type='button';next.disabled=index===phases.length-1;next.onclick=()=>select(index+1,true);pager.append(previous,make('span','',`${index+1} / 4`),next);panel.append(pager);panels.append(panel);
     tab.addEventListener('click',()=>select(index,false));
     tab.addEventListener('keydown',event=>{let target;if(event.key==='ArrowRight')target=(index+1)%4;if(event.key==='ArrowLeft')target=(index+3)%4;if(event.key==='Home')target=0;if(event.key==='End')target=3;if(target!==undefined){event.preventDefault();select(target,true)}});
