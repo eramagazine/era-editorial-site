@@ -35,7 +35,7 @@
 - `eventRanges` — точные даты начала и окончания календарных периодов в том же порядке, что и `schedule` (`null` — открытая дата окончания); у дополнительных событий даты заданы непосредственно в `start`/`end`, важные даты отмечены `important: true`;
 - `team` — категории команды, номера изображений `images/Group … .png`, участники и описания ролей;
 
-Редакционные этапы (`phases`) находятся в `assets/workflow.js`; кластеры рубрик (`rubricClusters`) и изображения (`rubricImages`) и содержимое 80 страниц (`pageGroups`) — в `assets/structure.js`. Общие стили — `assets/site.3ed9ebe90d2b.css`, поведение меню — `assets/navigation.js`. Содержание страниц редактируется в соответствующих HTML-файлах.
+Редакционные этапы (`phases`) находятся в `assets/workflow.js`; кластеры рубрик (`rubricClusters`) и изображения (`rubricImages`) и содержимое 80 страниц (`pageGroups`) — в `assets/structure.js`. Общие стили — `assets/site.a06b8c118c0b.css`, поведение меню — `assets/navigation.js`. Содержание страниц редактируется в соответствующих HTML-файлах.
 
 ## Технические ограничения
 

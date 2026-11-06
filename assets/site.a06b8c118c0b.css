@@ -423,3 +423,22 @@
     .calendar-add-actions{display:flex;align-items:center;flex-wrap:wrap;gap:14px;margin-top:24px}
     .calendar-add-button{display:inline-flex;align-items:center;justify-content:center;border:1px solid #0e0e0e;border-radius:100px;background:#0e0e0e;color:var(--paper);font:11px/1.5 var(--mono);padding:12px 20px;text-decoration:none;min-height:44px}
     .calendar-add-button:hover{background:#333}.calendar-google-link{font:11px/1.5 var(--mono);color:var(--muted);text-underline-offset:4px}
+
+    #team{overflow:hidden}
+    #team-list,#team-list:not(.team-expanded){display:block;position:relative;perspective:1200px;isolation:isolate;touch-action:pan-y;cursor:grab;transition:height .45s ease;margin:12px 0 0;padding-top:12px}
+    #team-list>.team-category,#team-list:not(.team-expanded)>.team-category:nth-child(n+2){display:block;position:absolute;left:50%;top:12px;width:clamp(240px,30vw,400px);margin:0;transform-origin:center top;transition:transform .65s cubic-bezier(.22,.8,.25,1),opacity .5s;animation:none;will-change:transform}
+    #team-list .team-artwork-frame,#team-list:not(.team-expanded) .team-artwork-frame{max-width:none;width:100%;margin:0}
+    #team-list .team-category .team-artwork{transform:none}
+    #team-list .team-category:not(.is-active) .team-members{display:none}
+    #team-list.is-dragging{cursor:grabbing}#team-list.is-dragging>.team-category{transition:none}
+    .team-carousel-controls{display:flex;align-items:center;justify-content:center;gap:24px;margin-top:16px}
+    .team-carousel-controls button{display:grid;place-items:center;width:44px;height:44px;border:1px solid #a3a3a3;border-radius:50%;background:transparent;color:var(--ink);font:20px var(--mono);cursor:pointer}
+    .team-carousel-controls button:hover{background:var(--ink);color:var(--paper)}.team-carousel-controls span{font:11px var(--mono);min-width:130px;text-align:center}
+    @media(max-width:600px){#team-list>.team-category,#team-list:not(.team-expanded)>.team-category:nth-child(n+2){width:66vw;max-width:320px}.team-carousel-controls{gap:16px}}
+    @media(prefers-reduced-motion:reduce){#team-list,#team-list>.team-category{transition:none}}
+    @media print{#team-list{height:auto!important;display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;perspective:none}#team-list>.team-category{position:static!important;width:auto!important;transform:none!important;opacity:1!important}.team-carousel-controls{display:none}}
+
+    #team-list>.team-category:after{content:"";position:absolute;inset:0;background:var(--paper);opacity:.5;pointer-events:none;transition:opacity .5s}
+    #team-list>.team-category.is-active:after{opacity:0}
+    #team-list .team-category summary:hover .team-category-heading h3{color:var(--ink)}
+    @media(prefers-reduced-motion:reduce){#team-list>.team-category:after{transition:none}}
