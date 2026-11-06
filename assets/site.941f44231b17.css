@@ -462,3 +462,6 @@
 
     #team-list.is-wheeling>.team-category{transition:transform .12s ease-out,opacity .2s}
     @media(prefers-reduced-motion:reduce){#team-list.is-wheeling>.team-category{transition:none}}
+
+    .task-complete[data-status=done]{background:rgba(0,0,0,.045);color:var(--muted)}
+    .task-owner-label[data-group]{background:rgba(0,0,0,.055);color:var(--ink);padding:7px 10px}
