@@ -24,5 +24,5 @@ insert into public.era_task_completion (id,done) values
  ('hook-2026-10-19',false),('backup-team-2026-10-19',false),
  ('heroes-2026-10-20',true),('rubrics-2026-10-20',true),
  ('design-2026-10-20',false),('logo-2026-11-02',false),
- ('finance-2026-11-03',false),('research-2026-11-03',false),('visual-language-2026-11-04',false),('hero-contacts-2026-11-04',false)
+ ('finance-2026-11-03',false),('research-2026-11-03',false),('visual-language-2026-11-04',false),('hero-contacts-2026-11-04',false),('smm-reels-2026-10-09',false),('local-scene-research-2026-10-09',false)
 on conflict (id) do nothing;
