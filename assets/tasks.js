@@ -22,7 +22,7 @@
   function persist(){try{localStorage.setItem(storageKey,JSON.stringify(completion))}catch{syncStatus.textContent="Не удалось сохранить отметки в браузере."}}
   function render(){
     const query=search.value.trim().toLocaleLowerCase("ru");
-    const filtered=tasks.filter(task=>(!query||[task.title,task.owner,...task.description].join(" ").toLocaleLowerCase("ru").includes(query))&&(!statusFilter.value||status(task)===statusFilter.value)&&(!ownerFilter.value||(ownerFilter.value==="all"?task.group==="all":task.group==="all"||(task.assignees||[]).includes(ownerFilter.value))));
+    const filtered=tasks.filter(task=>(!query||[task.title,task.owner,...task.description].join(" ").toLocaleLowerCase("ru").includes(query))&&(!statusFilter.value||(statusFilter.value==="archive"?completed(task):!completed(task)))&&(!ownerFilter.value||(ownerFilter.value==="all"?task.group==="all":task.group==="all"||(task.assignees||[]).includes(ownerFilter.value))));
     const done=tasks.filter(completed).length;summary.textContent=`Выполнено ${done} из ${tasks.length} · Показано ${filtered.length}`;
     tbody.replaceChildren();
     filtered.forEach(task=>{
