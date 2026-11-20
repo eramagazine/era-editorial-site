@@ -486,3 +486,10 @@
     #task-people .task-table-wrap{border-width:1px 0 0;border-radius:0}
     #task-people .task-person-empty{padding:0 20px 20px;margin:0}
     @media(max-width:600px){#task-people{grid-template-columns:minmax(0,1fr);gap:8px}#task-people .task-person-heading{min-height:60px;padding:14px 16px}#task-people .task-person-heading h3{font-size:18px}#task-people .task-person .task-row{margin:0 10px 12px}#task-people .task-person .task-table-wrap{padding-top:12px}}
+
+    .journalist-assignments{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px;margin:40px 0 70px}
+    .journalist-assignment{border:1px solid #a3a3a3;border-radius:18px;padding:26px;min-width:0}
+    .journalist-assignment h2{font:600 clamp(22px,2vw,28px)/1.25 var(--fira-sans);margin:0 0 24px}
+    .journalist-heroes{list-style:none;display:flex;flex-wrap:wrap;gap:10px;margin:0;padding:0}
+    .journalist-heroes li{border:1px solid var(--line);border-radius:100px;padding:10px 15px;font:14px/1.4 var(--font);max-width:100%;overflow-wrap:anywhere}
+    @media(max-width:850px){.journalist-assignments{grid-template-columns:minmax(0,1fr);gap:16px;margin-top:28px}.journalist-assignment{padding:22px}}
