@@ -5,6 +5,8 @@
   const root=document.getElementById("task-people");
   const search=document.getElementById("task-search");
   const statusFilter=document.getElementById("task-status-filter");
+  statusFilter.value="in_progress";
+  const expandedPeople=new Set();
   const ownerFilter=document.getElementById("task-owner-filter");
   ownerFilter.replaceChildren(new Option("Все участники",""),...(window.ERA_TASK_PEOPLE||[]).map(name=>new Option(name,name)));
   const summary=document.getElementById("task-summary");
@@ -28,9 +30,10 @@
     const people=(window.ERA_TASK_PEOPLE||[]).filter(name=>!ownerFilter.value||name===ownerFilter.value);
     people.forEach((name,index)=>{
       const personal=filtered.filter(task=>task.group==="all"||(task.assignees||[]).includes(name));
-      const section=el("section","task-person");section.dataset.person=name;
-      const heading=el("div","task-person-heading");const title=el("h3","",name);title.id="task-person-"+index;
-      heading.append(title,el("span","task-person-count",`${personal.length} задач`));section.append(heading);
+      const section=el("details","task-person");section.dataset.person=name;section.open=expandedPeople.has(name);
+      section.addEventListener("toggle",()=>{if(section.isConnected){if(section.open)expandedPeople.add(name);else expandedPeople.delete(name)}});
+      const heading=el("summary","task-person-heading");const title=el("h3","",name);title.id="task-person-"+index;
+      heading.append(title,el("span","task-person-count",`${personal.length} ${personal.length%100>=11&&personal.length%100<=14?"задач":personal.length%10===1?"задача":personal.length%10>=2&&personal.length%10<=4?"задачи":"задач"}`));section.append(heading);
       if(!personal.length){section.append(el("p","task-person-empty",statusFilter.value==="archive"?"В архиве пока нет задач.":"Активных задач нет."));root.append(section);return}
       const wrap=el("div","task-table-wrap"),table=el("table","task-table");table.setAttribute("aria-labelledby",title.id);
       table.append(el("caption","sr-only",`Задачи: ${name}`));const head=el("thead"),headRow=el("tr");
