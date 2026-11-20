@@ -2,11 +2,11 @@
   const tasks=window.ERA_TASKS;
   const config=window.ERA_TASKS_CONFIG||{mode:"preview"};
   const storageKey="era-task-completion-v1";
-  const tbody=document.getElementById("task-rows");
+  const root=document.getElementById("task-people");
   const search=document.getElementById("task-search");
   const statusFilter=document.getElementById("task-status-filter");
   const ownerFilter=document.getElementById("task-owner-filter");
-  ownerFilter.replaceChildren(new Option("Все участники",""),new Option("Вся команда","all"),...(window.ERA_TASK_PEOPLE||[]).map(name=>new Option(name,name)));
+  ownerFilter.replaceChildren(new Option("Все участники",""),...(window.ERA_TASK_PEOPLE||[]).map(name=>new Option(name,name)));
   const summary=document.getElementById("task-summary");
   const syncStatus=document.getElementById("task-sync-status");
   let completion={};
@@ -24,13 +24,23 @@
     const query=search.value.trim().toLocaleLowerCase("ru");
     const filtered=tasks.filter(task=>(!query||[task.title,task.owner,...task.description].join(" ").toLocaleLowerCase("ru").includes(query))&&(!statusFilter.value||(statusFilter.value==="archive"?completed(task):!completed(task)))&&(!ownerFilter.value||(ownerFilter.value==="all"?task.group==="all":task.group==="all"||(task.assignees||[]).includes(ownerFilter.value))));
     const done=tasks.filter(completed).length;summary.textContent=`Выполнено ${done} из ${tasks.length} · Показано ${filtered.length}`;
-    tbody.replaceChildren();
-    filtered.forEach(task=>{
+    root.replaceChildren();
+    const people=(window.ERA_TASK_PEOPLE||[]).filter(name=>!ownerFilter.value||name===ownerFilter.value);
+    people.forEach((name,index)=>{
+      const personal=filtered.filter(task=>task.group==="all"||(task.assignees||[]).includes(name));
+      const section=el("section","task-person");section.dataset.person=name;
+      const heading=el("div","task-person-heading");const title=el("h3","",name);title.id="task-person-"+index;
+      heading.append(title,el("span","task-person-count",`${personal.length} задач`));section.append(heading);
+      if(!personal.length){section.append(el("p","task-person-empty",statusFilter.value==="archive"?"В архиве пока нет задач.":"Активных задач нет."));root.append(section);return}
+      const wrap=el("div","task-table-wrap"),table=el("table","task-table");table.setAttribute("aria-labelledby",title.id);
+      table.append(el("caption","sr-only",`Задачи: ${name}`));const head=el("thead"),headRow=el("tr");
+      ["Дата","Дедлайн","Задача","Описание задачи","Статус"].forEach(text=>{const cell=el("th","",text);cell.scope="col";headRow.append(cell)});head.append(headRow);table.append(head);
+      const tbody=el("tbody");table.append(tbody);wrap.append(table);section.append(wrap);root.append(section);
+      personal.forEach(task=>{
       const row=el("tr","task-row");row.dataset.taskId=task.id;row.dataset.status=status(task);
       const date=el("td","task-created",formatDate(task.created));date.dataset.label="Дата";
       const deadline=el("td","task-deadline");deadline.dataset.label="Дедлайн";deadline.append(el("span","",formatDate(task.deadline)));if(task.extended)deadline.append(el("span","task-extended","Дедлайн продлён"));
       const title=el("th","task-title",task.title);title.scope="row";title.dataset.label="Задача";
-      const owner=el("td","task-owner");owner.dataset.label="Кто выполняет";const badges=el("div","task-owner-labels");(task.assignees?.length?task.assignees:["Все"]).forEach(name=>{const badge=el("span","task-owner-label",name);badge.dataset.group=task.group;badges.append(badge)});owner.append(badges);
       const description=el("td","task-description");description.dataset.label="Описание задачи";
       if(task.description.length){
         description.append(el("p","task-description-preview",task.description[0]));
@@ -44,9 +54,9 @@
       const label=el("label","task-complete");label.dataset.status=status(task);
       const checkbox=el("input");checkbox.type="checkbox";checkbox.checked=completed(task);checkbox.disabled=!sharedReady||(config.mode==="supabase"&&typeof completion[task.id]!=="boolean")||pending.has(task.id);if(sharedReady&&config.mode==="supabase"&&typeof completion[task.id]!=="boolean")checkbox.title="Отметка станет доступна после подключения новой задачи к общей базе";checkbox.setAttribute("aria-label",`Выполнено: ${task.title}`);
       checkbox.addEventListener("change",()=>setComplete(task,checkbox.checked));label.append(checkbox,el("span","",labels[status(task)]));state.append(label);
-      row.append(date,deadline,title,owner,description,state);tbody.append(row);
+      row.append(date,deadline,title,description,state);tbody.append(row);
     });
-    if(!filtered.length){const row=el("tr");const cell=el("td","task-empty","По выбранным условиям задач нет.");cell.colSpan=6;row.append(cell);tbody.append(row)}
+    });
   }
   const configured=config.mode==="supabase"&&/^https:\/\/[a-z0-9-]+\.supabase\.co\/?$/.test(config.url||"")&&Boolean(config.publishableKey);
   const headers=()=>({apikey:config.publishableKey,"Content-Type":"application/json"});
@@ -85,7 +95,7 @@
       completion[task.id]=previous;syncStatus.textContent="Не удалось сохранить отметку. Изменение отменено — попробуйте ещё раз.";announce(syncStatus.textContent);
     }finally{
       pending.delete(task.id);latestWrite++;render();
-      const checkbox=tbody.querySelector(`[data-task-id="${task.id}"] input`);if(checkbox)checkbox.focus();
+      const checkbox=root.querySelector(`[data-task-id="${task.id}"] input`);if(checkbox)checkbox.focus();
     }
   }
   search.addEventListener("input",render);statusFilter.addEventListener("change",render);ownerFilter.addEventListener("change",render);
